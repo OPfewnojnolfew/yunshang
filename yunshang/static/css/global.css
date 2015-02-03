@@ -1,0 +1,107 @@
+.btn {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 35px;
+    display: inline-block;
+    width: 113px;
+    cursor: pointer;
+    text-align: center;
+    white-space: nowrap;
+    color: #fff;
+    background-image: none;
+}
+.btn-lg {
+    font-size: 16px;
+    width: 150px;
+}
+/*.btn-sm {
+    font-size: 12px;
+    width:px;
+    line-height: ;
+}
+.btn-xs {
+    font-size: 12px;
+    width:px;
+    line-height: ;
+}*/
+
+.btn:hover {
+    text-decoration: none;
+}
+.btn.disabled, .btn[disabled], .btn.disabled:hover, .btn[disabled]:hover {
+    cursor: not-allowed;
+    pointer-events: none;
+    background-color: #ccc;
+}
+.btn-default {
+    background-color: #ccc;
+}
+.btn-default:hover {
+    background-color: #ccc;
+}
+.btn-primary {
+    background-color: #3479ed;
+}
+.btn-primary:hover {
+    background-color: #4887f1;
+}
+.btn-success {
+    background-color: #5cac22;
+}
+.btn-success:hover {
+    background-color: #65bb27;
+}
+.btn-info {
+    background-color: #5bc0de;
+}
+.btn-info:hover {
+    background-color: #31b0d5;
+}
+.btn-warning {
+    background-color: #f0ad4e;
+}
+.btn-warning:hover {
+    background-color: #ec971f;
+}
+.btn-danger {
+    background-color: #f26962;
+}
+.btn-danger:hover {
+    background-color: #D9534F;
+}
+.icon-errortips {
+    display: block;
+    padding-top: 125px;
+    text-align: center;
+    margin-top: 20px;
+    color: #999;
+    background: url(../img/ico-errortips.png) center top no-repeat;
+}
+.left {
+    float: left;
+}
+.right {
+    float: right;
+}
+.star {
+    display: inline-block;
+    width: 24px;
+    height: 19px;
+    background: url(../img/star.png) center left repeat-x;
+    vertical-align: text-bottom
+}
+.star-1 {
+    width: 24px;
+}
+.star-2 {
+    width: 48px;
+}
+.star-3 {
+    width: 72px;
+}
+.star-4 {
+    width: 96px;
+}
+.star-5 {
+    width: 120px;
+}

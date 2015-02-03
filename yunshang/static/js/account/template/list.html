@@ -1,0 +1,102 @@
+{{#if side}}
+<ul>
+    {{#each side}}
+    <li>
+        <p>{{name}}</p>
+        {{#if children}}
+        <ul>
+            {{#each children}}
+            <li>
+                <a href="javascript:void(0)">{{name}}</a>
+            </li>
+            {{/each}}
+        </ul>
+        {{/if}}
+    </li>
+    {{/each}}
+</ul>
+{{/if}} {{#if userInfo}}
+<div class="user-avatar">
+    <img src="/assets/static/img/ui-avatar.png" />
+</div>
+<div class="user-desc">
+    <p class="user-nick">{{userInfo.nickName}}</p>
+    <p class="user-name">帐号名：{{userInfo.userName}}</p>
+    <p class="user-balance">余额：<span>{{userInfo.balance}}</span>积分</p>
+</div>
+<div class="user-operate">
+    <a href="javacript:void(0)" class="signin">立即签到</a>
+    <a href="javacript:void(0)" class="pay">立即充值</a>
+</div>
+<div class="user-footprint">
+    <ul>
+        <li>
+            <p>签到</p>
+            <p>
+                <a href="javacript:void(0)">{{userInfo.signin}}次</a>
+            </p>
+        </li>
+        <li>
+            <p>课程</p>
+            <p><a href="javacript:void(0)">{{userInfo.course}}节</a>
+            </p>
+        </li>
+        <li>
+            <p>提问</p>
+            <p><a href="javacript:void(0)">{{userInfo.questions}}条</a>
+            </p>
+        </li>
+        <li>
+            <p>回答</p>
+            <p><a href="javacript:void(0)">{{userInfo.answer}}条</a>
+            </p>
+        </li>
+    </ul>
+</div>
+{{/if}} {{#if course}}
+<div>
+    <p class="course-title">我的课程</p>
+    <div class="ui-tabular course-tab fn-clear">
+        <a href="javacript:void(0)" data-tab="paycourse" class="active">我购买的课程</a>
+        <a href="javacript:void(0)" data-tab="collectcourse">我收藏的课程</a>
+    </div>
+    <div class="ui-tab active course-items fn-clear" data-tab="paycourse">
+        <ul>
+            <li>
+                <div class="course-item">
+                    <img src="/assets/static/img/test.jpg">
+                    <p>人力志愿管理1</p>
+                    <div class="course-desc">
+                        <a href="javascript:void(0)">课程详情</a>
+                        <span>已购买</span>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="course-item">
+                    <img src="/assets/static/img/test.jpg">
+                    <p>人力志愿管理2</p>
+                    <div class="course-desc">
+                        <a href="javascript:void(0)">课程详情</a>
+                        <span>已购买</span>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="ui-tab course-items fn-clear" data-tab="collectcourse">
+        <ul>
+            <li>
+                <div class="course-item">
+                    <img src="/assets/static/img/test.jpg">
+                    <p>人力志愿管理2</p>
+                    <div class="course-desc">
+                        <a href="javascript:void(0)">课程详情</a>
+                        <span>已购买</span>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+{{/if}}

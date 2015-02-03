@@ -1,0 +1,49 @@
+body {
+    background: #fff;
+}
+.exam-h-title {
+    font-size: 36px;
+    font-weight: 700;
+    margin-left: 35px;
+    color: #3479ED;
+    float: left;
+    padding: 10px 0;
+}
+.exam-h-subtitle {
+    font-size: 20px;
+    margin-left: 60px;
+    color: #516483;
+    float: left;
+    padding: 20px 0;
+}
+.exam-h-exit {
+    float: right;
+    margin: 20px 0;
+}
+.exem-h-bline {
+    height: 1px;
+    background: #3479ed;
+}
+.exam-loading {
+    padding-top: 70px;
+    margin-top: 110px;
+    font-size: 20px;
+    text-align: center;
+    padding-left: 75px;
+    background: url(../img/logo.png) top center no-repeat;
+}
+.exam-readying {
+    text-align: center;
+}
+.exam-readying p.listening {
+    padding-top: 213px;
+    margin-top: 110px;
+    font-size: 20px;
+    text-align: center;
+    background: url(../img/listen-big.png) top center no-repeat;
+}
+.exam-readying a {
+    width: 221px;
+    line-height: 41px;
+    margin-top: 50px;
+}

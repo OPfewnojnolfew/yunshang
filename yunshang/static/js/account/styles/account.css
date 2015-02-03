@@ -1,0 +1,150 @@
+.account-container {
+    margin-top: 10px;
+}
+.account-side {
+    float: left;
+    overflow: hidden;
+    width: 215px;
+    padding: 15px;
+    background: #fff;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+.account-content {
+    float: right;
+    width: 745px;
+    background: #fff;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+.account-side ul > li > p {
+    font-size: 14px;
+    line-height: 35px;
+    border-bottom: 1px solid #bbcae2;
+}
+.account-side ul li li {
+    padding: 0 10px;
+}
+.account-side ul a {
+    line-height: 33px;
+    display: block;
+    height: 33px;
+    padding: 0 5px;
+}
+.account-side ul a:hover, .account-side ul a.active {
+    color: #3479ed;
+    background: #f0f0f0;
+}
+.account-content .account-info {
+    padding: 20px 20px 0;
+}
+.user-avatar {
+    float: left;
+    margin-right: 10px;
+}
+.user-avatar img {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+}
+.user-desc {
+    padding-top: 10px;
+}
+.user-desc p {
+    line-height: 30px;
+    height: 30px;
+}
+.user-desc p.user-nick {
+    font-size: 20px;
+    font-weight: 700;
+}
+.user-desc p.user-balance span {
+    color: #22ac38;
+}
+.user-operate {
+    clear: left;
+    overflow: hidden;
+}
+.user-operate a {
+    line-height: 35px;
+    float: right;
+    width: 113px;
+    margin-left: 10px;
+    text-align: center;
+    color: #fff;
+}
+.user-operate a.pay {
+    background: #f26962;
+}
+.user-operate a.signin {
+    background: #5cac22;
+}
+.user-footprint {
+    overflow: hidden;
+    margin: 10px 0;
+    padding: 15px;
+    border-top: 1px solid #d1d1d1;
+    border-bottom: 1px solid #d1d1d1;
+}
+.user-footprint li {
+    float: left;
+    width: 25%;
+    margin-left: -1px;
+    text-align: center;
+    border-left: 1px solid #d1d1d1;
+}
+.user-footprint li:first-child {
+    border-left: none;
+}
+.user-footprint a {
+    color: #3479ed;
+}
+.account-content .account-other {
+    padding: 0 20px 10px;
+}
+.account-other .course-title {
+    height: 35px;
+    line-height: 35px;
+    font-size: 14px;
+    border-bottom: 1px solid #d1d1d1;
+}
+.course-tab {
+    height: 30px;
+    line-height: 30px;
+    width: 200px;
+    text-align: center;
+    margin: 5px 0 10px;
+    background: #FFF;
+    border: 1px solid #B8C4CE;
+}
+.course-tab a {
+    float: left;
+    width: 100px;
+    margin-left: -1px;
+    border-left: 1px solid #B8C4CE;
+}
+.course-tab a.active {
+    border-bottom: 2px solid #3479ED;
+    color: #3479ED;
+}
+.course-items li {
+    float: left;
+    margin-right: 5px;
+}
+.course-item {
+    border: 1px solid #D1D1D1;
+    padding: 5px;
+}
+.course-item img {
+    width: 150px;
+    height: 120px;
+}
+.course-item p {
+    font-weight: 600;
+    line-height: 25px;
+}
+.course-item .course-desc {
+    overflow: hidden;
+}
+.course-item .course-desc span {
+    float: right;
+    color: #22AC38;
+}

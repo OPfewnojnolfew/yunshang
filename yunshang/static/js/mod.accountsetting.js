@@ -1,9 +1,9 @@
 $(function() {
     var URLS = {
-            UPDATEINFO: '', //修改用户基本信息 POST{nikeName: nikeName,email: email,sex: sex,profession: profession,introduce: introduce}
-            UPLOADIMG: '', //头像上传 file
+            UPDATEINFO: saveInfoUrl, //修改用户基本信息 POST{nikeName: nikeName,email: email,sex: sex,profession: profession,introduce: introduce}
+            UPLOADIMG: changeAvatarUrl, //头像上传 file
             CROPAVATAR: '', //头像裁切 GET{id: avatarID,x: avatarX,y: avatarY,width: avatarW,height: avatarH} 
-            UPDATEPASS: '' //更新密码POST{originPass:,newPass:}
+            UPDATEPASS: changePassUrl //更新密码POST{originPass:,newPass:}
         },
         _ajax = function(url, data, type, contentType) {
             var ops = {
@@ -35,7 +35,7 @@ $(function() {
         //基本信息设置
         $('.J-infosave').on('click', function() {
             var nikeName = $.trim($('#setting-nickname').val()),
-                email = $.trim($('#setting-email').val()),
+                //email = $.trim($('#setting-email').val()),
                 sex = $('input[name="sex"]:checked').val(),
                 profession = $('#setting-profession').val(),
                 introduce = $('#setting-introduce').val();
@@ -45,21 +45,21 @@ $(function() {
                 }).showModal();
                 return;
             }
-            if (!isMail(email)) {
+            /*if (!isMail(email)) {
                 dialog({
                     content: '邮箱格式不正确！'
                 }).showModal();
                 return;
-            }
+            }*/
             _ajax(URLS.UPDATEINFO, {
                 nikeName: nikeName,
-                email: email,
+                //email: email,
                 sex: sex,
                 profession: profession,
                 introduce: introduce
             }, 'POST').then(function(res) {
                 dialog({
-                    content: '修改成功！'
+                    content: res.message
                 }).showModal();
             });
         });
@@ -260,9 +260,10 @@ $(function() {
             _ajax(URLS.UPDATEPASS, {
                 originPass: originPass,
                 newPass: newPass
-            }, 'POST').then(function() {
-                //原始密码错误
-                //修改密码成功
+            }, 'POST').then(function(res) {
+            	dialog({
+                    content: res.message
+                }).showModal();
             });
         });
     })();

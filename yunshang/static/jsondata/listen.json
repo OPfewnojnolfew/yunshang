@@ -1,0 +1,121 @@
+{
+    "error_code": 0,
+    "error_msg": "xxx",
+    "data": {
+        "etid": "4",
+        "ecid": "11",
+        "fid": "0",
+        "level": "3",
+        "score": "0",
+        "title": "L3.decline of coral reefs",
+        "type": "2",
+        "intro": null,
+        "audio": "static/video/test.mp3",
+        "sort": "1",
+        "content": null,
+        "is_display": "1",
+        "attachment": "",
+        "create_time": "2015-01-31 12:08:39",
+        "update_time": "2015-01-31 20:08:39",
+        "subjects": [{
+            "esid": "6",
+            "ecid": "11",
+            "etid": "4",
+            "stitle": "What does the professor imply about compression and extension?",
+            "is_display": "1",
+            "create_time": "2015-01-31 12:08:39",
+            "update_time": "2015-01-31 20:08:39",
+            "option": [{
+                "eoid": "21",
+                "esid": "6",
+                "otitle": "He believes it accounts for a great deal of glacial movement",
+                "is_right": "0",
+                "create_time": "2015-01-31 12:08:39"
+            }, {
+                "eoid": "22",
+                "esid": "6",
+                "otitle": "He thinks it is a slower type of a glacial movement than basal slip",
+                "is_right": "0",
+                "create_time": "2015-01-31 12:08:39"
+            }, {
+                "eoid": "23",
+                "esid": "6",
+                "otitle": "He is not convinced that it is a type of glacial movement",
+                "is_right": "1",
+                "create_time": "2015-01-31 12:08:39"
+            }, {
+                "eoid": "24",
+                "esid": "6",
+                "otitle": "He does not agree that it causes fissures in glaciers.",
+                "is_right": "0",
+                "create_time": "2015-01-31 12:08:39"
+            }]
+        }, {
+            "esid": "6",
+            "ecid": "11",
+            "etid": "4",
+            "stitle": "What does the professor imply about compression and extension?",
+            "is_display": "1",
+            "create_time": "2015-01-31 12:08:39",
+            "update_time": "2015-01-31 20:08:39",
+            "option": [{
+                "eoid": "21",
+                "esid": "6",
+                "otitle": "He believes it accounts for a great deal of glacial movement",
+                "is_right": "1",
+                "create_time": "2015-01-31 12:08:39"
+            }, {
+                "eoid": "22",
+                "esid": "6",
+                "otitle": "He thinks it is a slower type of a glacial movement than basal slip",
+                "is_right": "0",
+                "create_time": "2015-01-31 12:08:39"
+            }, {
+                "eoid": "23",
+                "esid": "6",
+                "otitle": "He is not convinced that it is a type of glacial movement",
+                "is_right": "0",
+                "create_time": "2015-01-31 12:08:39"
+            }, {
+                "eoid": "24",
+                "esid": "6",
+                "otitle": "He does not agree that it causes fissures in glaciers.",
+                "is_right": "0",
+                "create_time": "2015-01-31 12:08:39"
+            }]
+        }, {
+            "esid": "6",
+            "ecid": "11",
+            "etid": "4",
+            "stitle": "What does the professor imply about compression and extension?",
+            "is_display": "1",
+            "create_time": "2015-01-31 12:08:39",
+            "update_time": "2015-01-31 20:08:39",
+            "option": [{
+                "eoid": "21",
+                "esid": "6",
+                "otitle": "He believes it accounts for a great deal of glacial movement",
+                "is_right": "0",
+                "create_time": "2015-01-31 12:08:39"
+            }, {
+                "eoid": "22",
+                "esid": "6",
+                "otitle": "He thinks it is a slower type of a glacial movement than basal slip",
+                "is_right": "0",
+                "create_time": "2015-01-31 12:08:39"
+            }, {
+                "eoid": "23",
+                "esid": "6",
+                "otitle": "He is not convinced that it is a type of glacial movement",
+                "is_right": "0",
+                "create_time": "2015-01-31 12:08:39"
+            }, {
+                "eoid": "24",
+                "esid": "6",
+                "otitle": "He does not agree that it causes fissures in glaciers.",
+                "is_right": "1",
+                "create_time": "2015-01-31 12:08:39"
+            }]
+        }]
+    }
+}

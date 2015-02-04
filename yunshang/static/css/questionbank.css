@@ -84,7 +84,7 @@
 }
 .qb-recommend {
     margin-top: 10px;
-    padding: 8px 16px 0;
+    padding: 8px 16px;
     background: #fff;
 }
 .qb-recommend > p {
@@ -142,6 +142,8 @@
     display: block;
     color: #3479ed;
 }
+/******************听力******************/
+
 .qb-listen {
     padding: 20px;
     background: #fff;
@@ -186,4 +188,82 @@
     display: inline-block;
     width: 200px;
     margin-top: 5px;
+}
+/******************阅读******************/
+
+.qb-read {
+    padding: 20px;
+    background: #fff;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
+}
+.qb-col-2 {
+    float: left;
+    width: 320px;
+    padding: 10px;
+    border: 1px solid #d1d1d1;
+    margin-bottom: 10px;
+}
+.qb-col-2.even {
+    float: right;
+}
+.qb-col-2 .qb-col-head {
+    text-align: center;
+    line-height: 45px;
+    font-size: 20px;
+    font-weight: 700;
+    border-bottom: 1px solid #d1d1d1;
+}
+.qb-col-2 .qb-col-body {
+    padding-top: 10px;
+    text-indent: 20px;
+    height: 92px;
+    font-size: 14px;
+    color: #909090;
+    overflow: hidden;
+}
+.qb-col-2 .qb-col-foot {
+    text-align: center;
+    margin-top: 20px;
+}
+.qb-col-2 .qb-col-foot a {
+    margin-left: 10px;
+}
+/******************写作口语******************/
+
+.qb-write, .qb-speak {
+    padding: 20px 0;
+    background: #fff;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
+}
+.qb-col-3 {
+    float: left;
+    width: 210px;
+    padding: 10px;
+    border: 1px solid #d1d1d1;
+    margin: 0 0 10px 10px;
+}
+.qb-col-3 .qb-col-head {
+    text-align: center;
+    line-height: 45px;
+    font-size: 20px;
+    font-weight: 700;
+    border-bottom: 1px solid #d1d1d1;
+}
+.qb-col-3 .qb-col-body div {
+    margin-top: 10px;
+}
+.qb-col-3 .qb-col-body p {
+    padding-top: 10px;
+    text-indent: 20px;
+    height: 92px;
+    font-size: 14px;
+    color: #909090;
+    overflow: hidden;
+}
+.qb-col-3 .qb-col-foot {
+    text-align: center;
+    margin-top: 20px;
+}
+.qb-col-3 .qb-col-foot a {
+    margin-left: 10px;
 }

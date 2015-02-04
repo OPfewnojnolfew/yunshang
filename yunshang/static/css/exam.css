@@ -1,20 +1,26 @@
 body {
     background: #fff;
 }
+.exam-h-desc {
+    float: left;
+    width: 790px;
+    padding: 0 10px;
+    line-height: 78px;
+}
 .exam-h-title {
     font-size: 36px;
     font-weight: 700;
     margin-left: 35px;
     color: #3479ED;
     float: left;
-    padding: 10px 0;
+    /*padding: 10px 0;*/
 }
 .exam-h-subtitle {
     font-size: 20px;
     margin-left: 60px;
     color: #516483;
     float: left;
-    padding: 20px 0;
+    /*padding: 20px 0;*/
 }
 .exam-h-exit {
     float: right;
@@ -23,6 +29,11 @@ body {
 .exem-h-bline {
     height: 1px;
     background: #3479ed;
+}
+.exam-h-timer {
+    float: right;
+    color: #999;
+    margin-right: 10px;
 }
 .exam-loading {
     padding-top: 70px;
@@ -46,4 +57,80 @@ body {
     width: 221px;
     line-height: 41px;
     margin-top: 50px;
+}
+.exam-h-player {
+    margin: 10px 0;
+}
+.exam-listening {
+    padding: 30px 0 0 60px;
+}
+.exam-title {
+    font-size: 20px;
+    font-weight: 700px;
+    line-height: 40px;
+}
+.exam-choice {
+    font-size: 16px;
+    font-weight: 400;
+    margin-top: 10px;
+}
+.echoice-body li {
+    overflow: hidden;
+    margin: 15px 0;
+    cursor: pointer;
+}
+.echoice-body li i {
+    float: left;
+}
+.echoice-body li p {
+    float: left;
+    padding-left: 10px;
+    width: 890px;
+}
+.echoice-foot {
+    text-align: center;
+    margin: 50px 0 0;
+}
+.echoice-foot a {
+    margin-right: 20px;
+}
+.exam-check {
+    display: inline-block;
+    background: url('../img/examcheck.png') no-repeat 0 -31px;
+    width: 24px;
+    height: 24px;
+}
+.exam-check.checked, .exam-check[checked] {
+    background: url('../img/examcheck.png') no-repeat 0 0;
+}
+.exam-dialog {
+    width: 618px;
+}
+.exam-body {
+    overflow: hidden;
+    margin-top: -20px;
+}
+.exam-body i {
+    font-size: 120px;
+    color: #8fc31f;
+    float: left;
+}
+.exam-body ul {
+    float: left;
+    margin: 30px 0 0 45px;
+}
+.exam-body ul li {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+.exam-body ul li.last {
+    margin-top: 45px;
+    font-weight: 400;
+    color: #676767;
+    font-size: 14px;
+}
+.exam-foot {
+    margin-top: 50px;
+    text-align: center;
 }

@@ -228,3 +228,24 @@ if (typeof JSON == 'undefined') this.JSON = {};
 	};
 
 })();
+
+/***************************共用函数************************/
+(function() {
+    window.YS = window.YS || {};
+    window.YS.ajax = function(url, data, type, contentType) {
+        var ops = {
+            url: url,
+            type: type || "GET",
+            data: data || {}
+        };
+        contentType && (ops.contentType = contentType);
+        var xhr = $.ajax(ops);
+        return xhr;
+    };
+    window.YS.getParameterByName = function(name) {
+        name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+        var regex = new RegExp('[\\?&]' + name + '=([^&#]*)'),
+            results = regex.exec(location.search);
+        return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+    };
+})();

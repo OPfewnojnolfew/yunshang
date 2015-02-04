@@ -6,6 +6,7 @@
     <title>云上教育，为你提供最优质最完善的备考服务</title>
     <link rel="stylesheet" media="screen" href="static/css/style.css" />
     <link rel="stylesheet" media="screen" href="static/css/global.css" />
+    <link rel="stylesheet" type="text/css" href="static/js/jplayer/yunshang.jplayer.css">
     <link rel="stylesheet" media="screen" href="static/css/exam.css" />
     <link rel="shortcut icon" type="image/x-icon" href="static/img/favicon.png" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
@@ -21,25 +22,33 @@
 </head>
 
 <body>
-    <div id="H">
-        <div class="w">
+    <div id="H" style="display:none">
+        <div class="J_head w">
             <h1 class="logo"><a href="./">云上教育</a></h1>
-            <p class="exam-h-title">美国考试SAT</p>
-            <p class="exam-h-subtitle">01 Conversation1</p>
-            <a class="exam-h-exit btn btn-lg btn-primary">结束训练</a>
+            <div class="exam-h-desc">
+                <p class="exam-h-title"></p>
+                <p class="exam-h-subtitle">01 Conversation1</p>
+                <a class="exam-h-exit btn btn-lg btn-primary"><i class="iconfont">&#xe65b;</i> 结束训练</a>
+                <div class="exam-h-timer">计时：<span>00:00</span>
+                </div>
+            </div>
             <div class="fn-clear"></div>
         </div>
         <div class="exem-h-bline"></div>
     </div>
     <div id="M" class="w">
-        <div class="exam-loading" style="display:none">你正在进入云上考试系统，请稍等。。。</div>
-        <div class="exam-readying">
+        <div class="exam-loading">你正在进入云上考试系统，请稍等。。。</div>
+        <div class="exam-readying" style="display:none">
             <p class="listening">您即将进行听力练习，请做好准备</p>
-            <a href="javascript:void(0)" class="btn btn-primary">GO</a>
+            <a href="javascript:void(0)" class="J-GO btn btn-primary">GO</a>
+        </div>
+        <div class="exam-examing" style="display:none">
         </div>
     </div>
-    <script src="static/js/jquery.js "></script>
-    <script src="static/js/mod.exam.js "></script>
+    <script src="static/js/jquery.js"></script>
+    <script src="static/js/mod.base.js"></script>
+    <script src="static/js/jplayer/jquery.jplayer.js"></script>
+    <script src="static/js/mod.exam.js"></script>
 </body>
 
 </html>

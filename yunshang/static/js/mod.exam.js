@@ -1,7 +1,27 @@
 $(function() {
-    var type = window.YS.getParameterByName('type'),
+    var examType = {
+            '2': 'listening',
+            '3': 'reading',
+            '4': 'speaking',
+            '5': 'writing',
+            '6': 'mocking'
+        },
+        examTypeValue = {
+            '2': '听力',
+            '3': '阅读',
+            '4': '口语',
+            '5': '写作',
+            '6': '模拟考试'
+        },
+        type = window.YS.getParameterByName('type'),
         etid = window.YS.getParameterByName('etid'),
-        URLS = {
+        currentType = examType[type],
+        recorder = null,
+        currentTypeValue = examTypeValue[type];
+    if (!currentType) {
+        return;
+    }
+    var URLS = {
             GETLISTENURL: 'static/jsondata/listen.json'
         },
         OPTIONS = ['A', 'B', 'C', 'D', 'E', 'F', 'G'],
@@ -75,6 +95,13 @@ $(function() {
                     '</div>',
                     '</div>',
                     '</div>',
+                    '<div class="jp-volume-controls">',
+                    '<button class="jp-mute" role="button" tabindex="0">mute</button>',
+                    '<button class="jp-volume-max" role="button" tabindex="0">max volume</button>',
+                    '<div class="jp-volume-bar">',
+                    '<div class="jp-volume-bar-value"></div>',
+                    '</div>',
+                    '</div>',
                     '<div class="jp-time-holder">',
                     '<div class="jp-current-time" role="timer" aria-label="time">&nbsp;</div>',
                     '<div class="jp-duration" role="timer" aria-label="duration">&nbsp;</div>',
@@ -101,9 +128,12 @@ $(function() {
                 cssSelectorAncestor: '.linsten-jcontainer'
             });
         },
-        _createSingleChoice = function(obj, index, total) {
+        _createReader = function($container) {
+            $container.html('<h2 class="reading-title">' + currentData.title + '</h2><p class="reading-content">' + currentData.content + '</p>');
+        },
+        _createSingleChoice = function(obj, index, total, $container) {
             var singleChoice = [
-                    '<div class="exam-listening">',
+                    '<div class="exam-' + examType[type] + '">',
                     '<h2 class="exam-title">Question ' + index + ' of ' + total + '</h2>',
                     '<div class="exam-choice">',
                     '<p class="echoice-header">' + obj.stitle + '</p>',
@@ -117,7 +147,7 @@ $(function() {
                 $ui = $('.echoice-body', $singleChoice),
                 $prev = $('<a href="javascript:void(0)" class="btn btn-primary"> <i class="iconfont">&#xe63d;</i> 上一题</a>'),
                 $next = $('<a href="javascript:void(0)" class="btn btn-primary disabled">下一题 <i class="iconfont">&#xe63c;</i></a>'),
-                $submit = $('<a href="javascript:void(0)" class="J_eaxmSubmit btn btn-primary disabled"><i class="iconfont">&#xe612;</i>提交</a>'),
+                $submit = $('<a href="javascript:void(0)" class="J_eaxmSubmit btn btn-primary disabled"><i class="iconfont">&#xe612;</i> 提交</a>'),
                 i = 0,
                 clickHandler = function() {
                     var $this = $(this);
@@ -160,14 +190,7 @@ $(function() {
                     examList[index].$dom.show().siblings().hide();
                     return;
                 }
-                var $singleChoice;
-                currentData.subjects.length && ($singleChoice = _createSingleChoice(currentData.subjects[index], index + 1, total));
-                $('.exam-examing').append($singleChoice);
-                examList.push({
-                    $dom: $singleChoice,
-                    obj: currentData.subjects[index]
-                });
-                $singleChoice.siblings().hide();
+                currentData.subjects.length && _createSingleChoice(currentData.subjects[index], index + 1, total, $container);
             });
             $submit.on('click', function() {
                 timer.pause();
@@ -204,7 +227,12 @@ $(function() {
                 }
                 _submitDialog(rcount, wcount);
             });
-            return $singleChoice;
+            $container.append($singleChoice);
+            $singleChoice.siblings().hide();
+            examList.push({
+                $dom: $singleChoice,
+                obj: obj
+            });
         },
         _submitDialog = function(rcount, wcount) {
             var isPass = rcount / (rcount + wcount) * 100 > 60;
@@ -231,7 +259,7 @@ $(function() {
                 $review = $('.exam-foot a:eq(0)', $dialogContent),
                 currentDialog = dialog({
                     title: ' ',
-                    width: 618,
+                    width: 570,
                     height: 300,
                     content: $dialogContent,
                     innerHTML: '<div i="dialog" class="ui-dialog"><div class="ui-dialog-arrow-a"></div><div class="ui-dialog-arrow-b"></div><table class="ui-dialog-grid"><tr><td i="header" class="ui-dialog-header"><button i="close" class="ui-dialog-close">&#215;</button><div i="title" class="ui-dialog-title"></div></td></tr><tr><td i="body" class="ui-dialog-body"><div i="content" class="ui-dialog-content"></div></td></tr></table></div>'
@@ -242,13 +270,29 @@ $(function() {
             });
         },
         gotoReadying = function() {
+            currentType === 'speaking' && _createSpeakRecord();
             $('#H').show();
             $examLoading.hide();
             $examing.hide();
-            $examReadying.show();
+            var rc = [
+                    '<div>',
+                    '<p class="' + currentType + '">',
+                    '您即将进行' + currentTypeValue + '练习，请做好准备',
+                    '</p>',
+                    '<a href="javascript:void(0)" class="J-GO btn btn-primary">GO</a>',
+                    '</div>'
+                ],
+                $rc = $(rc.join(''));
+            $examReadying.html($rc).show();
             $('.exam-h-title').text('美国考试SAT'); //根据后台
             $('.exam-h-subtitle').text(currentData && currentData.title); //根据后台
             $('.exam-h-exit').attr('href', document.referrer); //根据后台
+        },
+        _createSpeakRecord = function() {
+            recorder = new window.YS.Recorder({
+                uploadUrl: '',
+                swfUrl: 'static/js/recorder/rec.swf'
+            });
         };
 
     window.YS.ajax(URLS.GETLISTENURL, {
@@ -260,19 +304,29 @@ $(function() {
             gotoReadying();
         }
     });
-    $('.J-GO').on('click', function() {
+    $(document).on('click', '.J-GO', function() {
         $examReadying.hide();
         $examing.show();
         timer.start();
-        _createPlayer(currentData && currentData.audio);
-        if (currentData.subjects && currentData.subjects.length) {
-            var $singleChoice;
-            $singleChoice = _createSingleChoice(currentData.subjects[0], 1, currentData.subjects.length);
-            $('.exam-examing').append($singleChoice);
-            examList.push({
-                $dom: $singleChoice,
-                obj: currentData.subjects[0]
-            });
+        if (currentType === 'listening') {
+            $('#M').addClass('w-158');
+            _createPlayer(currentData && currentData.audio);
+            if (currentData.subjects && currentData.subjects.length) {
+                var $listeningContainer = $('<div></div');
+                _createSingleChoice(currentData.subjects[0], 1, currentData.subjects.length, $listeningContainer);
+                $('.exam-examing').append($listeningContainer);
+            }
+        } else if (currentType === 'reading') {
+            var $readingContainer = $('<div class="reading-container fn-clear"><div class="reading-l"></div><div class="reading-r"></div></div'),
+                $l = $('.reading-l', $readingContainer),
+                $r = $('.reading-r', $readingContainer);
+            _createReader($r);
+            if (currentData.subjects && currentData.subjects.length) {
+                _createSingleChoice(currentData.subjects[0], 1, currentData.subjects.length, $l);
+            }
+            $('.exam-examing').append($readingContainer);
+        } else if (currentType === 'speaking') {
+
         }
     });
 });

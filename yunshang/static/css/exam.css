@@ -1,6 +1,16 @@
 body {
     background: #fff;
 }
+.exam-w {
+    position: absolute;
+    top: 80px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+.w-158 {
+    top: 158px;
+}
 .exam-h-desc {
     float: left;
     width: 790px;
@@ -46,12 +56,17 @@ body {
 .exam-readying {
     text-align: center;
 }
-.exam-readying p.listening {
+.exam-readying p {
     padding-top: 213px;
     margin-top: 110px;
     font-size: 20px;
     text-align: center;
+}
+.exam-readying p.listening {
     background: url(../img/listen-big.png) top center no-repeat;
+}
+.exam-readying p.reading {
+    background: url(../img/write-big.png) top center no-repeat;
 }
 .exam-readying a {
     width: 221px;
@@ -85,7 +100,7 @@ body {
 .echoice-body li p {
     float: left;
     padding-left: 10px;
-    width: 890px;
+    width: 445px;
 }
 .echoice-foot {
     text-align: center;
@@ -104,7 +119,7 @@ body {
     background: url('../img/examcheck.png') no-repeat 0 0;
 }
 .exam-dialog {
-    width: 618px;
+    width: 570px;
 }
 .exam-body {
     overflow: hidden;
@@ -133,4 +148,38 @@ body {
 .exam-foot {
     margin-top: 50px;
     text-align: center;
+}
+.exam-foot a {
+    margin-left: 30px;
+}
+.reading-container .reading-l {
+    width: 480px;
+    height: 100%;
+    min-height: 100px;
+    float: left;
+    padding-top: 30px;
+    overflow: hidden;
+    overflow-y: auto;
+}
+.reading-container .reading-r {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 485px;
+    overflow: hidden;
+    overflow-y: auto;
+    border: 2px solid #ccc;
+}
+.reading-title {
+    padding: 30px 0 29px;
+    text-align: center;
+    font-size: 24px;
+    color: #333;
+}
+.reading-content {
+    font-size: 16px;
+    line-height: 26px;
+    padding: 0 20px 30px;
+    color: #000;
 }

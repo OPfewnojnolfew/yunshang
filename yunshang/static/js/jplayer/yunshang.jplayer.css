@@ -1,3 +1,6 @@
+.jp-audio {
+    position: relative;
+}
 .jp-progress {
     width: 660px;
     margin: 0 auto
@@ -31,4 +34,59 @@
 }
 .jp-time-holder .jp-duration {
     float: right;
+}
+.jp-volume-controls {
+    position: absolute;
+    top: 10px;
+    right: -50px;
+    width: 200px;
+}
+.jp-audio-stream .jp-volume-controls {
+    left: 70px;
+}
+.jp-video .jp-volume-controls {
+    top: 12px;
+    left: 50px;
+}
+.jp-volume-controls button {
+    display: block;
+    position: absolute;
+    overflow: hidden;
+    text-indent: -9999px;
+    border: none;
+    cursor: pointer;
+}
+.jp-mute, .jp-volume-max {
+    width: 19px;
+    height: 16px;
+}
+.jp-volume-max {
+    left: 74px;
+}
+.jp-mute {
+    background: url("volume.png") 0 0 no-repeat;
+}
+.jp-volume-max {
+    background: url("volume.png") -21px 0 no-repeat;
+}
+.jp-mute:hover {
+    background: url("volume.png") 0 -21px no-repeat;
+}
+.jp-volume-max:hover {
+    background: url("volume.png") -21px -21px no-repeat;
+}
+.jp-volume-bar {
+    position: absolute;
+    overflow: hidden;
+    background: #ccc;
+    top: 5px;
+    left: 22px;
+    width: 46px;
+    height: 5px;
+    cursor: pointer;
+}
+.jp-volume-bar-value {
+    background: #019be3;
+    width: 0px;
+    height: 5px;
 }

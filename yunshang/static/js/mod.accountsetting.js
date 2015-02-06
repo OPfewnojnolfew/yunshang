@@ -1,9 +1,9 @@
 $(function() {
     var URLS = {
-            UPDATEINFO: saveInfoUrl, //修改用户基本信息 POST{nikeName: nikeName,email: email,sex: sex,profession: profession,introduce: introduce}
-            UPLOADIMG: changeAvatarUrl, //头像上传 file
+            UPDATEINFO: 'saveInfoUrl', //修改用户基本信息 POST{nikeName: nikeName,email: email,sex: sex,profession: profession,introduce: introduce}
+            UPLOADIMG: 'changeAvatarUrl', //头像上传 file
             CROPAVATAR: '', //头像裁切 GET{id: avatarID,x: avatarX,y: avatarY,width: avatarW,height: avatarH} 
-            UPDATEPASS: changePassUrl //更新密码POST{originPass:,newPass:}
+            UPDATEPASS: 'changePassUrl' //更新密码POST{originPass:,newPass:}
         },
         _ajax = function(url, data, type, contentType) {
             var ops = {
@@ -221,7 +221,7 @@ $(function() {
                 $avatarOriginimg.Jcrop({
                     onChange: _updatePreview,
                     onSelect: _updateCoords,
-                    maxSize: [300, 200],
+                    // maxSize: [300, 200],
                     allowSelect: false,
                     aspectRatio: 1,
                     bgFade: true,

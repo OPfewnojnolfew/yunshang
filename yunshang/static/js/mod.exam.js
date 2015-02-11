@@ -13,21 +13,28 @@ $(function() {
             '5': '写作',
             '6': '模拟考试'
         },
-        type = window.YS.getParameterByName('type'),
-        etid = window.YS.getParameterByName('etid'),
+        // type = window.YS.getParameterByName('type'),
+        type = $('#examtype').val() || '2',
+        // etid = window.YS.getParameterByName('etid'),
+        etid = $('#exametid').val(),
         currentType = examType[type],
         recorder = null,
         currentTypeValue = examTypeValue[type];
-    if (!currentType) {
+    if (!currentType || !etid) {
         return;
     }
     var URLS = {
-            GETLISTENURL: 'static/jsondata/listen.json'
+            GETLISTENURL: _EXAM_URL,
+            POSTRECORDER: 'acceptfile.php?filename=hello',
+            ADDWRITINGURL: '' //{'content':}
         },
         OPTIONS = ['A', 'B', 'C', 'D', 'E', 'F', 'G'],
         currentData,
         PASSMESSAGE = '您真是个天才，快去挑战更难的题目吧！',
         NOPASSMESSAGE = '您要加油哦！',
+        $recorder, //录音机
+        PREPARETIME = 15, //录音准备时间
+        RECORDTIME = 45, //录音时间
         timer = {
             elapsedTime: 0,
             isplay: false,
@@ -79,20 +86,21 @@ $(function() {
         $examReadying = $('.exam-readying'),
         $examing = $('.exam-examing');
 
-    var _createPlayer = function(videoPath) {
+    var _createPlayer = function(videoPath, $container, showControl, isdrag) {
             if (!videoPath) {
                 return;
             }
+            videoPath = (_STATIC_URL || '') + videoPath;
             var player = [
                     '<div class="exam-h-player">',
                     '<div class="linsten-jplayer jp-jplayer"></div>',
-                    '<div class="linsten-jcontainer jp-audio" role="application" aria-label="media player">',
+                    '<div id="linsten-jcontainer" class="jp-audio" role="application" aria-label="media player">',
                     '<div class="jp-type-single">',
                     '<div class="jp-gui jp-interface">',
+                    showControl ? '<div class="jp-controls"><a class="jp-play" href="javascript:void(0)" tabindex="0"></a></div>' : '',
                     '<div class="jp-progress">',
                     '<div class="jp-seek-bar">',
                     '<div class="jp-play-bar"></div>',
-                    '</div>',
                     '</div>',
                     '</div>',
                     '<div class="jp-volume-controls">',
@@ -108,28 +116,59 @@ $(function() {
                     '</div>',
                     '</div>',
                     '</div>',
+                    '</div>',
                     '</div>'
                 ],
                 $player = $($.parseHTML(player.join(''))),
                 $linstenJplayer = $('.linsten-jplayer', $player),
                 $jpSeekbar = $('.jp-seek-bar', $player);
-            $('.J_head').append($player);
+            ($container || $('.J_head')).append($player);
             $linstenJplayer.jPlayer({
                 ready: function(event) {
-                    $(this).jPlayer('setMedia', {
+                    var pl = $(this).jPlayer('setMedia', {
                         mp3: videoPath,
-                    }).jPlayer('play');
-                    $jpSeekbar.off('click');
+                    });
+                    !showControl && pl.jPlayer('play');
+                    !isdrag && $jpSeekbar.off('click');
                 },
                 swfPath: 'static/js/jplayer/jquery.jplayer.swf',
                 supplied: 'mp3, oga',
                 wmode: 'window',
                 smoothPlayBar: true,
-                cssSelectorAncestor: '.linsten-jcontainer'
+                useStateClassSkin: true,
+                autoBlur: false,
+                keyEnabled: true,
+                remainingDuration: true,
+                toggleDuration: true,
+                cssSelectorAncestor: '#linsten-jcontainer'
             });
         },
         _createReader = function($container) {
             $container.html('<h2 class="reading-title">' + currentData.title + '</h2><p class="reading-content">' + currentData.content + '</p>');
+        },
+        _createWrite = function($container) {
+            var $wl = $('.writing-l', $container),
+                $wr = $('.writing-r', $container),
+                $wrc = $('<div class="writing-area"><textarea/></div><div class="writing-s"><a href="javascript:void(0)" class="btn btn-primary">提交</a></div>'),
+                $textarea = $('textarea', $wrc),
+                $wsubmit = $('a', $wrc);
+            $wsubmit.on('click', function() {
+                var textareaVal = $.trim($textarea.val());
+                if (!textareaVal) {
+                    $textarea.focus();
+                    return;
+                }
+                timer.pause();
+                window.YS.ajax(URLS.ADDWRITINGURL, {
+                    content: textareaVal
+                }, 'POST').then(function(res) {
+                    $wsubmit.remove();
+                    $textarea.attr('disabled', 'disabled');
+                });
+            });
+            $wl.html('<h2 class="writing-title">' + currentData.title + '</h2><p class="writing-content">' + currentData.content + '</p>');
+            $wr.html($wrc);
+
         },
         _createSingleChoice = function(obj, index, total, $container) {
             var singleChoice = [
@@ -270,34 +309,184 @@ $(function() {
             });
         },
         gotoReadying = function() {
-            currentType === 'speaking' && _createSpeakRecord();
             $('#H').show();
             $examLoading.hide();
             $examing.hide();
-            var rc = [
+            var rc,
+                $rc;
+            if (currentType === 'speaking') {
+                rc = [
                     '<div>',
-                    '<p class="' + currentType + '">',
+                    '<p class="exam-ready-header ' + currentType + '">',
                     '您即将进行' + currentTypeValue + '练习，请做好准备',
                     '</p>',
-                    '<a href="javascript:void(0)" class="J-GO btn btn-primary">GO</a>',
+                    '<div class="recorder-content fn-clear">',
+                    '<a href="javascript:void(0)" class="J-recordertest btn btn-primary">录音测试</a>',
+                    '<p class="J-recordertsign">出现 "请求授权" 时，请点击 "允许"</p>',
+                    '</div>',
+                    '<a href="javascript:void(0)" class="J-GO btn btn-primary btn-go" style="display:none">GO</a>',
                     '</div>'
-                ],
+                ];
                 $rc = $(rc.join(''));
-            $examReadying.html($rc).show();
-            $('.exam-h-title').text('美国考试SAT'); //根据后台
+
+                var $Jrecordercontent = $('.recorder-content', $rc),
+                    $Jrecordertest = $('.J-recordertest', $rc),
+                    $Jrecordertsign = $('.J-recordertsign', $rc),
+                    $t = $('<span></span>'),
+                    t = 4,
+                    $JGO = $('.J-GO', $rc),
+                    recorderType = 0, //0-录音测试 1-录音中 2-重新录音测试
+                    readyRecorder = function() {
+                        t = t - 1;
+                        $t.text(' ' + t);
+                        if (t === 0) {
+                            $Jrecordertest.on('click', recorderAudio);
+                            $.jRecorder.record(30);
+                            $Jrecordertest.text('录音中。。。');
+                            $Jrecordertsign.text('录音中，点击进行回听和重新测试');
+                            $Jrecordertest.removeClass('btn-primary').addClass('btn-default');
+                            recorderType = 1;
+                        } else {
+                            setTimeout(readyRecorder, 1000);
+                        }
+                    },
+                    recorderAudio = function() {
+                        if (recorderType === 0 || recorderType === 2) {
+                            $.jRecorder.stopAudio();
+                            $Jrecordertest.append($t);
+                            t = 4;
+                            readyRecorder();
+                            $Jrecordertest.off('click');
+                        } else if (recorderType === 1) {
+                            $.jRecorder.stop();
+                            $.jRecorder.playAudio();
+                            $Jrecordertest.text('重新测试');
+                            $Jrecordertsign.text('出现 "请求授权" 时，请点击 "允许"');
+                            $Jrecordertest.removeClass('btn-default').addClass('btn-primary');
+                            recorderType = 2;
+                            $JGO.show();
+                        }
+                    };
+                $Jrecordertest.on('click', recorderAudio);
+                $examReadying.html($rc).show();
+                // _createSpeakRecord($Jrecordercontent);
+                _createSpeakRecord();
+            } else {
+                rc = [
+                    '<div>',
+                    '<p class="exam-ready-header ' + currentType + '">',
+                    '您即将进行' + currentTypeValue + '练习，请做好准备',
+                    '</p>',
+                    '<a href="javascript:void(0)" class="J-GO btn btn-primary btn-go">GO</a>',
+                    '</div>'
+                ];
+                $rc = $(rc.join(''));
+                $examReadying.html($rc).show();
+            }
+            $('.exam-h-title').text(currentData && currentData.cate_name); //根据后台
             $('.exam-h-subtitle').text(currentData && currentData.title); //根据后台
             $('.exam-h-exit').attr('href', document.referrer); //根据后台
         },
         _createSpeakRecord = function() {
-            recorder = new window.YS.Recorder({
-                uploadUrl: '',
-                swfUrl: 'static/js/recorder/rec.swf'
+            $.jRecorder({
+                host: URLS.POSTRECORDER,
+                swf_path: 'static/js/jrecorder/jRecorder.swf',
+                callback_finished_sending: function(res) {
+                    var $speakingPreview = $('.speaking-previeving');
+                    res = JSON.parse(res);
+                    if ($speakingPreview.length) {
+                        $speakingPreview.show().siblings().remove();
+                        $('.speaking-foot').remove();
+                        _createPlayer(res.path, $speakingPreview, true, true);
+                    }
+                }
+            }, $('.J_recorder'));
+        },
+        _createSpeaking = function($container) {
+            var speakingHtml = [
+                    '<div class="exam-' + examType[type] + '">',
+                    '<div class="speaking-header"><p></p></div>',
+                    '<div class="speaking-body">',
+                    '<div class="speaking-ready">',
+                    '<p>Preparation Time: ' + PREPARETIME + ' Seconds</p>',
+                    '<p>Response Time: ' + RECORDTIME + ' Seconds</p>',
+                    '</div>',
+                    '<div class="speaking-recording">',
+                    '<div class="speaking-recording-t">Prepare your response</div>',
+                    '<div class="speaking-recording-m">00:' + (PREPARETIME < 10 ? '0' + PREPARETIME : PREPARETIME) + '</div>',
+                    '<div class="speaking-recording-b">',
+                    '<div class="speaking-recording-run"></div>',
+                    '</div>',
+                    '</div>',
+                    '<div class="speaking-previeving"></div>',
+                    '</div>',
+                    '<div class="speaking-foot"><a href="javascript:void(0)" class="btn btn-primary">提交</a></div>',
+                    '</div>'
+                ],
+                $speakingHtml = $(speakingHtml.join('')),
+                $ready = $('.speaking-ready', $speakingHtml),
+                $record = $('.speaking-recording', $speakingHtml),
+                $srt = $('.speaking-recording-t', $record),
+                $srm = $('.speaking-recording-m', $record),
+                // $srb = $('.speaking-recording-b', $record),
+                $srr = $('.speaking-recording-run', $record),
+                $foot = $('.speaking-foot', $speakingHtml),
+                $recorderSubmit = $('a', $foot),
+                $headerp = $('.speaking-header p', $speakingHtml);
+            $headerp.text(currentData.content);
+            $container.html($speakingHtml);
+            // $speakingHtml.append($recorder);
+            $recorderSubmit.on('click', function() {
+                $.jRecorder.sendData();
+                timer.pause();
+                $foot.html('<p class="speaking-stip">正在处理音频文件，请稍后...</p>');
             });
+            var ptime = PREPARETIME,
+                rtime = RECORDTIME,
+                bwidth = '458px',
+                prepareing = function() {
+                    $srm.text('00:' + (ptime < 10 ? '0' + ptime : ptime));
+                    ptime = ptime - 1;
+                    if (ptime < 0) {
+                        $srt.text('Recording');
+                        $srm.text('00:' + (RECORDTIME < 10 ? '0' + RECORDTIME : RECORDTIME));
+                        $srr.finish().css('width', 0);
+                        setTimeout(function() {
+                            $.jRecorder.record(RECORDTIME);
+                            $srr.finish().animate({
+                                width: bwidth
+                            }, RECORDTIME * 1000);
+                            recording();
+                        }, 1000);
+                    } else {
+                        setTimeout(prepareing, 1000);
+                    }
+                },
+                recording = function() {
+                    $srm.text('00:' + (rtime < 10 ? '0' + rtime : rtime));
+                    rtime = rtime - 1;
+                    if (rtime < 0) {
+                        $.jRecorder.stop();
+                        $foot.show();
+                    } else {
+                        setTimeout(recording, 1000);
+                    }
+                };
+            setTimeout(function() {
+                $ready.hide();
+                $record.show();
+                setTimeout(function() {
+                    prepareing();
+                    $srr.finish().animate({
+                        width: bwidth
+                    }, PREPARETIME * 1000);
+                }, 1000);
+            }, 1000);
         };
 
     window.YS.ajax(URLS.GETLISTENURL, {
         etid: etid
-    }).then(function(res) {
+    }, 'POST').then(function(res) {
         Object.prototype.toString.call(res) === '[object String]' && (res = JSON.parse(res));
         if (res.error_code === 0) {
             currentData = res.data;
@@ -326,7 +515,14 @@ $(function() {
             }
             $('.exam-examing').append($readingContainer);
         } else if (currentType === 'speaking') {
-
+            var $speakingContainer = $('<div class="speaking-container"></div');
+            $('.exam-examing').append($speakingContainer);
+            $.jRecorder.stopAudio();
+            _createSpeaking($speakingContainer);
+        } else if (currentType === 'writing') {
+            var $writingContainer = $('<div class="writing-container fn-clear"><div class="writing-l"></div><div class="writing-r"><textarea/></div></div');
+            _createWrite($writingContainer);
+            $('.exam-examing').append($writingContainer);
         }
     });
 });

@@ -41,6 +41,25 @@
     right: -50px;
     width: 200px;
 }
+.jp-controls {
+    position: absolute;
+    left: 108px
+}
+.jp-play {
+    display: inline-block;
+    height: 46px;
+    width: 46px;
+    background: url(/static/js/jplayer/jpcontrol.png) no-repeat -43px 0;
+}
+.jp-play:hover {
+    background: url(/static/js/jplayer/jpcontrol.png) no-repeat -43px -51px;
+}
+.jp-state-playing .jp-play {
+    background: url(/static/js/jplayer/jpcontrol.png) no-repeat -95px 0;
+}
+.jp-state-playing .jp-play:hover {
+    background: url(/static/js/jplayer/jpcontrol.png) no-repeat -95px -51px;
+}
 .jp-audio-stream .jp-volume-controls {
     left: 70px;
 }

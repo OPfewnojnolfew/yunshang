@@ -24,10 +24,10 @@
 <body>
     <div id="H" style="display:none">
         <div class="J_head w">
-            <h1 class="logo"><a href="./">云上教育</a></h1>
+          <!--   <h1 class="logo"><a href="./">云上教育</a></h1> -->
             <div class="exam-h-desc">
                 <p class="exam-h-title"></p>
-                <p class="exam-h-subtitle">01 Conversation1</p>
+                <p class="exam-h-subtitle nowrap"></p>
                 <a class="exam-h-exit btn btn-lg btn-primary"><i class="iconfont">&#xe65b;</i> 结束训练</a>
                 <div class="exam-h-timer">计时：<span>00:00</span>
                 </div>
@@ -45,11 +45,18 @@
         <div class="exam-examing" style="display:none">
         </div>
     </div>
+    <div class="J_recorder speak-record"></div>
+    <input type="hidden" value="5" id="examtype" />
+    <input type="hidden" value="4" id="exametid" />
     <script src="static/js/jquery.js"></script>
     <script src="static/js/mod.base.js"></script>
     <script src="static/js/jplayer/jquery.jplayer.js"></script>
-    <script src="static/js/recorder/recorder.js"></script>
+    <script src="static/js/jrecorder/jRecorder.js"></script>
     <script src="static/js/mod.exam.js"></script>
+    <script>
+    window._EXAM_URL = 'static/jsondata/listen.json';
+    window._STATIC_URL = '';
+    </script>
 </body>
 
 </html>

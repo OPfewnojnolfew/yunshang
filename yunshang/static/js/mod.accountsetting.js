@@ -213,7 +213,7 @@ $(function() {
             }
             _clear();
             /****测试代码(可删)*****/
-            _showAvatarCrop();
+           /* _showAvatarCrop();
             $pimg.attr('src', 'static/img/test.jpg');
             $avatarOriginimg.attr('src', 'static/img/test.jpg');
             $preview.hide();
@@ -234,7 +234,7 @@ $(function() {
                     $preview.appendTo(jcrop_api.ui.holder);
                     $preview.show();
                 });
-            }, 200);
+            }, 200);*/
         });
 
         $('.J-passsave').on('click', function() {

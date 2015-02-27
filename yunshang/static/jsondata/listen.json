@@ -1,6 +1,6 @@
 {
     "error_code": 0,
-    "error_msg": "xxx",
+    "error_msg": "xxx",  
     "data": {
         "etid": "4",
         "ecid": "11",
@@ -18,9 +18,13 @@
         "attachment": "",
         "create_time": "2015-01-31 12:08:39",
         "update_time": "2015-01-31 20:08:39",
+        "wrong_item":[esid,esid,esid],
+        "answer_aurio" : "",
+        "answer_content" : "",
         "subjects": [{
             "esid": "6",
             "ecid": "11",
+            "selected":"eoid", 
             "etid": "4",
             "stitle": "What does the professor imply about compression and extension?",
             "is_display": "1",

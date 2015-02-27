@@ -25,7 +25,8 @@ $(function() {
     }
     var URLS = {
             GETLISTENURL: _EXAM_URL,
-            POSTRECORDER: 'acceptfile.php?filename=hello',
+            POSTRECORDER: _AUDIO_SAVE_URL,
+            SAVEEXAM: 'SAVE_EXAM',
             ADDWRITINGURL: '' //{'content':}
         },
         OPTIONS = ['A', 'B', 'C', 'D', 'E', 'F', 'G'],
@@ -90,11 +91,11 @@ $(function() {
             if (!videoPath) {
                 return;
             }
-            videoPath = (_STATIC_URL || '') + videoPath;
+            videoPath = (_UPLOAD_URL || '') + videoPath;
             var player = [
                     '<div class="exam-h-player">',
                     '<div class="linsten-jplayer jp-jplayer"></div>',
-                    '<div id="linsten-jcontainer" class="jp-audio" role="application" aria-label="media player">',
+                    '<div class="linsten-jcontainer jp-audio" role="application" aria-label="media player">',
                     '<div class="jp-type-single">',
                     '<div class="jp-gui jp-interface">',
                     showControl ? '<div class="jp-controls"><a class="jp-play" href="javascript:void(0)" tabindex="0"></a></div>' : '',
@@ -140,7 +141,7 @@ $(function() {
                 keyEnabled: true,
                 remainingDuration: true,
                 toggleDuration: true,
-                cssSelectorAncestor: '#linsten-jcontainer'
+                cssSelectorAncestor: '.linsten-jcontainer'
             });
         },
         _createReader = function($container) {
@@ -159,12 +160,24 @@ $(function() {
                     return;
                 }
                 timer.pause();
-                window.YS.ajax(URLS.ADDWRITINGURL, {
-                    content: textareaVal
+                currentData.answer_content = textareaVal;
+                window.YS.ajax(URLS.SAVEEXAM, {
+                    ueid: etid,
+                    data: JSON.stringify(currentData)
                 }, 'POST').then(function(res) {
-                    $wsubmit.remove();
-                    $textarea.attr('disabled', 'disabled');
+                    Object.prototype.toString.call(res) === '[object String]' && (res = JSON.parse(res));
+                    if (res.error_code === 0) {
+                        $wsubmit.remove();
+                        $textarea.attr('disabled', 'disabled');
+                    }
                 });
+                // window.YS.ajax(URLS.ADDWRITINGURL, {
+                //     content: textareaVal
+                // }, 'POST').then(function(res) {
+                //     $wsubmit.remove();
+                //     $textarea.attr('disabled', 'disabled');
+                // });
+
             });
             $wl.html('<h2 class="writing-title">' + currentData.title + '</h2><p class="writing-content">' + currentData.content + '</p>');
             $wr.html($wrc);
@@ -193,7 +206,7 @@ $(function() {
                     $('i', $ui).removeClass('checked');
                     $('i', $this).addClass('checked');
                     $next.removeClass('disabled');
-                    obj.selectedOption = $this.attr('data-id');
+                    obj.selected = $this.attr('data-id');
                     if (total === index) {
                         $submit.removeClass('disabled');
                     }
@@ -241,7 +254,8 @@ $(function() {
                     $examItem,
                     optionItem,
                     rcount = 0,
-                    wcount = 0;
+                    wcount = 0,
+                    wIDS = [];
                 for (; i < len; i++) {
                     examItem = examList[i].obj;
                     $examItem = examList[i].$dom;
@@ -250,13 +264,14 @@ $(function() {
                         optionItem = examItem.option[j];
                         if (optionItem.is_right === '1') {
                             $('.echoice-body', $examItem).append('<li class="echoice-correct">正确答案: ' + OPTIONS[j % OPTIONS.length] + '</li>')
-                            if (optionItem.eoid === examItem.selectedOption) {
+                            if (optionItem.eoid === examItem.selected) {
                                 rcount += 1;
                                 break;
                             }
                         }
                         if (j === opLen - 1) {
                             wcount += 1;
+                            wIDS.push(examItem.esid);
                         }
                     }
                     //移除提交按钮
@@ -264,6 +279,16 @@ $(function() {
                         $('.J_eaxmSubmit', $examItem).remove();
                     }
                 }
+                currentData.wrong_item = wIDS;
+                window.YS.ajax(URLS.SAVEEXAM, {
+                    ueid: etid,
+                    data: JSON.stringify(currentData)
+                }, 'POST').then(function(res) {
+                    Object.prototype.toString.call(res) === '[object String]' && (res = JSON.parse(res));
+                    if (res.error_code === 0) {
+                        //保存成功
+                    }
+                });
                 _submitDialog(rcount, wcount);
             });
             $container.append($singleChoice);
@@ -342,7 +367,7 @@ $(function() {
                         if (t === 0) {
                             $Jrecordertest.on('click', recorderAudio);
                             $.jRecorder.record(30);
-                            $Jrecordertest.text('录音中。。。');
+                            $Jrecordertest.text('录音中,点击停止');
                             $Jrecordertsign.text('录音中，点击进行回听和重新测试');
                             $Jrecordertest.removeClass('btn-primary').addClass('btn-default');
                             recorderType = 1;
@@ -390,10 +415,20 @@ $(function() {
         _createSpeakRecord = function() {
             $.jRecorder({
                 host: URLS.POSTRECORDER,
-                swf_path: 'static/js/jrecorder/jRecorder.swf',
+                swf_path: _STATIC_URL + '/js/jrecorder/jRecorder.swf',
                 callback_finished_sending: function(res) {
                     var $speakingPreview = $('.speaking-previeving');
                     res = JSON.parse(res);
+                    window.YS.ajax(URLS.SAVEEXAM, {
+                        ueid: etid,
+                        audio: res.path,
+                        data: JSON.stringify(currentData)
+                    }, 'POST').then(function(res) {
+                        Object.prototype.toString.call(res) === '[object String]' && (res = JSON.parse(res));
+                        if (res.error_code === 0) {
+                            //保存成功
+                        }
+                    });
                     if ($speakingPreview.length) {
                         $speakingPreview.show().siblings().remove();
                         $('.speaking-foot').remove();
@@ -526,3 +561,80 @@ $(function() {
         }
     });
 });
+// /*******************优化************************/
+// $(function() {
+//     var examType = {
+//             '2': {
+//                 key: 'listening',
+//                 value: '听力'
+//             },
+//             '3': {
+//                 key: 'reading',
+//                 value: '阅读'
+//             },
+//             '4': {
+//                 key: 'speaking',
+//                 value: '口语'
+//             },
+//             '5': {
+//                 key: 'writing',
+//                 value: '写作'
+//             },
+//             '6': {
+//                 key: 'mocking',
+//                 value: '模拟考试'
+//             }
+//         },
+//         type = $('#examtype').val() || '2',
+//         etid = $('#exametid').val(),
+//         currentType = examType[type],
+//         recorder = null;
+//     if (!currentType || !etid) {
+//         return;
+//     }
+//     //配置静态变量
+//     var URLS = {
+//             GETLISTENURL: _EXAM_URL, //获取听力
+//             POSTRECORDER: 'acceptfile.php?filename=hello', //提交口语
+//             ADDWRITINGURL: '' //{'content':}
+//         },
+//         OPTIONS = ['A', 'B', 'C', 'D', 'E', 'F', 'G'],
+//         PASSMESSAGE = '您真是个天才，快去挑战更难的题目吧！',
+//         NOPASSMESSAGE = '您要加油哦！',
+//         PREPARETIME = 15, //录音准备时间
+//         RECORDTIME = 45; //录音时间
+//     //全局变量    
+//     var currentData,
+//         $recorder, //录音机
+//         //倒计时
+
+//         examList = [],
+//         $examLoading = $('.exam-loading'),
+//         $examReadying = $('.exam-readying'),
+//         $examing = $('.exam-examing');
+//     /************TIMER******************/
+//     (function() {
+//         var options = {
+//             elapsedTime: 0,
+//             isplay: false,
+//             isCountdown: false,
+//             MAXTIMER: 5 * 60 * 60
+//         };
+//         var Timer = function(option) {
+//             this.options = $.extend(options, option);
+//         };
+//         Timer.prototype = {
+//             //hh-mm-ss,时-分钟-秒
+//             getTime: function(fmt) {
+
+//             },
+//             _formartTime: function() {
+//                 return {
+//                     h: Math.floor(this.options.elapsedTime / 3600),
+//                     m: Math.floor(this.options.elapsedTime % 3600 / 60),
+//                     s: this.options.elapsedTime % 3600 % 60
+//                 };
+//             }
+//         };
+//     })();
+// });

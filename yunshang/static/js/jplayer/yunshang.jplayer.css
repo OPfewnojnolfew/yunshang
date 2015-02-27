@@ -3,7 +3,7 @@
 }
 .jp-progress {
     width: 660px;
-    margin: 0 auto
+    margin: 0 auto;
 }
 .jp-seek-bar {
     position: relative;
@@ -49,16 +49,16 @@
     display: inline-block;
     height: 46px;
     width: 46px;
-    background: url(/static/js/jplayer/jpcontrol.png) no-repeat -43px 0;
+    background: url(jpcontrol.png) no-repeat -43px 0;
 }
 .jp-play:hover {
-    background: url(/static/js/jplayer/jpcontrol.png) no-repeat -43px -51px;
+    background: url(jpcontrol.png) no-repeat -43px -51px;
 }
 .jp-state-playing .jp-play {
-    background: url(/static/js/jplayer/jpcontrol.png) no-repeat -95px 0;
+    background: url(jpcontrol.png) no-repeat -95px 0;
 }
 .jp-state-playing .jp-play:hover {
-    background: url(/static/js/jplayer/jpcontrol.png) no-repeat -95px -51px;
+    background: url(jpcontrol.png) no-repeat -95px -51px;
 }
 .jp-audio-stream .jp-volume-controls {
     left: 70px;

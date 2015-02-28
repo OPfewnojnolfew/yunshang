@@ -41,7 +41,7 @@ $(function() {
                         content: content
                     }, 'POST').then(function() {
                         //修改成功
-                        callback && callback(title);
+                        callback && callback(title, content);
                         dia.close();
                     });
                     return false;
@@ -51,23 +51,35 @@ $(function() {
             }).showModal();
         },
         _editQuestion = function($dom) {
-            var id = $dom.attr('data-id');
+            var id = $dom.attr('data-id'),
+                $mb = $dom.closest('.media-body'),
+                $h = $('.media-heading', $mb),
+                $c = $('.media-content', $mb);
             if (!id) {
                 return;
             }
-            _ajax(URLS.GETQUESTION, {
-                id: id
-            }).then(function(data) {
-                if (data.status == 200) {
-                    _openDialog(data, function(title) {
-                        $dom.closest('.media-body').find('.media-content').text(title);
-                    });
-                } else {
-                    dialog({
-                        content: '网络错误，请重试！'
-                    }).showModal();
-                }
+            _openDialog({
+                id: id,
+                title: $h.text(),
+                content: $c.text()
+            }, function(title, content) {
+                $h.text(title);
+                $c.text(content);
             });
+            // _ajax(URLS.GETQUESTION, {
+            //     id: id
+            // }).then(function(data) {
+            //     if (data.status == 200) {
+            // _openDialog(data, function(title) {
+            //     $dom.closest('.media-body').find('.media-content').text(title);
+            // });
+            // } else {
+            //     dialog({
+            //         content: '网络错误，请重试！'
+            //     }).showModal();
+            // }
+
+            // });
         },
         _editAnswer = function($dom) {
             var id = $dom.attr('data-id'),

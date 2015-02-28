@@ -17,6 +17,7 @@ $(function() {
         type = $('#examtype').val() || '2',
         // etid = window.YS.getParameterByName('etid'),
         etid = $('#exametid').val(),
+        ueid = $('#examueid').val(),
         currentType = examType[type],
         recorder = null,
         currentTypeValue = examTypeValue[type];
@@ -162,7 +163,7 @@ $(function() {
                 timer.pause();
                 currentData.answer_content = textareaVal;
                 window.YS.ajax(URLS.SAVEEXAM, {
-                    ueid: etid,
+                    ueid: ueid,
                     data: JSON.stringify(currentData)
                 }, 'POST').then(function(res) {
                     Object.prototype.toString.call(res) === '[object String]' && (res = JSON.parse(res));
@@ -281,7 +282,7 @@ $(function() {
                 }
                 currentData.wrong_item = wIDS;
                 window.YS.ajax(URLS.SAVEEXAM, {
-                    ueid: etid,
+                    ueid: ueid,
                     data: JSON.stringify(currentData)
                 }, 'POST').then(function(res) {
                     Object.prototype.toString.call(res) === '[object String]' && (res = JSON.parse(res));
@@ -358,38 +359,53 @@ $(function() {
                     $Jrecordertest = $('.J-recordertest', $rc),
                     $Jrecordertsign = $('.J-recordertsign', $rc),
                     $t = $('<span></span>'),
-                    t = 4,
                     $JGO = $('.J-GO', $rc),
+                    t,
                     recorderType = 0, //0-录音测试 1-录音中 2-重新录音测试
-                    readyRecorder = function() {
-                        t = t - 1;
-                        $t.text(' ' + t);
-                        if (t === 0) {
-                            $Jrecordertest.on('click', recorderAudio);
-                            $.jRecorder.record(30);
-                            $Jrecordertest.text('录音中,点击停止');
-                            $Jrecordertsign.text('录音中，点击进行回听和重新测试');
-                            $Jrecordertest.removeClass('btn-primary').addClass('btn-default');
-                            recorderType = 1;
-                        } else {
-                            setTimeout(readyRecorder, 1000);
-                        }
+                    // readyRecorder = function() {
+                    //     $Jrecordertest.on('click', recorderAudio);
+                    //     $.jRecorder.record(30);
+                    //     $Jrecordertest.text('录音中,点击停止');
+                    //     $Jrecordertsign.text('录音中，点击进行回听和重新测试');
+                    //     $Jrecordertest.removeClass('btn-primary').addClass('btn-default');
+                    //     recorderType = 1;
+                    // },
+                    testRecording = function() {
+                        $.jRecorder.stopAudio();
+                        $.jRecorder.record(30);
+                        $Jrecordertest.text('录音中,点击停止');
+                        $Jrecordertsign.text('正在进行录音,点击停止');
+                        $Jrecordertest.removeClass('btn-primary').addClass('btn-default');
+                        t = new Date();
+                        recorderType = 1;
+                    },
+                    stopTestRecord = function() {
+                        $.jRecorder.stop();
+                        $Jrecordertest.text('点击播放');
+                        var $reRe = $('<a href="javascript:void(0)">重新录制</a>');
+                        $reRe.on('click', function() {
+                            $.jRecorder.stop();
+                            $Jrecordertest.text('录音测试');
+                            $Jrecordertsign.text('出现 "请求授权" 时，请点击 "允许"');
+                            recorderType = 0;
+                        });
+                        t = parseInt((new Date() - t) / 1000);
+                        t = t > 30 ? 30 : t;
+                        $Jrecordertsign.html('录音时长 ' + t + ' 秒').append($reRe);
+                        $Jrecordertest.removeClass('btn-default').addClass('btn-primary');
+                        recorderType = 2;
+                        $JGO.show();
+                    },
+                    playTestRecord = function() {
+                        $.jRecorder.playAudio();
                     },
                     recorderAudio = function() {
-                        if (recorderType === 0 || recorderType === 2) {
-                            $.jRecorder.stopAudio();
-                            $Jrecordertest.append($t);
-                            t = 4;
-                            readyRecorder();
-                            $Jrecordertest.off('click');
+                        if (recorderType === 0) {
+                            testRecording();
                         } else if (recorderType === 1) {
-                            $.jRecorder.stop();
-                            $.jRecorder.playAudio();
-                            $Jrecordertest.text('重新测试');
-                            $Jrecordertsign.text('出现 "请求授权" 时，请点击 "允许"');
-                            $Jrecordertest.removeClass('btn-default').addClass('btn-primary');
-                            recorderType = 2;
-                            $JGO.show();
+                            stopTestRecord();
+                        } else if (recorderType === 2) {
+                            playTestRecord();
                         }
                     };
                 $Jrecordertest.on('click', recorderAudio);
@@ -414,13 +430,15 @@ $(function() {
         },
         _createSpeakRecord = function() {
             $.jRecorder({
+                'rec_width': '230',
+                'rec_height': '150',
                 host: URLS.POSTRECORDER,
                 swf_path: _STATIC_URL + '/js/jrecorder/jRecorder.swf',
                 callback_finished_sending: function(res) {
                     var $speakingPreview = $('.speaking-previeving');
                     res = JSON.parse(res);
                     window.YS.ajax(URLS.SAVEEXAM, {
-                        ueid: etid,
+                        ueid: ueid,
                         audio: res.path,
                         data: JSON.stringify(currentData)
                     }, 'POST').then(function(res) {
@@ -561,6 +579,8 @@ $(function() {
         }
     });
 });
+
+
 // /*******************优化************************/
 // $(function() {
 //     var examType = {

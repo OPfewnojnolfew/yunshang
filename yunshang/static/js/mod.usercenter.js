@@ -60,24 +60,27 @@ $(function() {
                     content: $dialogContent,
                     innerHTML: '<div i="dialog" class="ui-dialog"><div class="ui-dialog-arrow-a"></div><div class="ui-dialog-arrow-b"></div><table class="ui-dialog-grid"><tr><td i="header" class="ui-dialog-header"><button i="close" class="ui-dialog-close">&#215;</button><div i="title" class="ui-dialog-title"></div></td></tr><tr><td i="body" class="ui-dialog-body"><div i="content" class="ui-dialog-content"></div></td></tr></table></div>'
                 }).showModal();
+            currentReceiver && $receiver.attr('readonly', 'readonly');
             $receiver.atwho({
                 at: "@",
-                data: '/yunshang/static/jsondata/msg.json',
+                data: $('#user_list_url').val(),
                 displayTpl: '<li data-id="${id}">${name}</li>',
                 insertTpl: "${name}",
                 callbacks: {
                     beforeInsert: function(value, li) {
                         value = value ? value : '';
                         $receiver.val('');
-                        receiver = li.attr('data-id');
+                        receiverId = li.attr('data-id');
                         return value;
                     }
                 }
             });
+            $receiver.atwho('isSelecting');
+            $receiver.focus();
             $send.off('click').on('click', function() {
                 var receiver = $receiver.val(),
                     content = $content.val();
-                if (!receiver) {
+                if (!receiverId || !receiver) {
                     notify.warn('请选择收件人');
                     $receiver.focus();
                     return;
@@ -86,7 +89,7 @@ $(function() {
                     notify.warn('请输入私信内容');
                     $content.focus();
                     return;
-                }
+                } 
                 _ajax($('#send_msg_url').val(), {
                     receiver: receiverId,
                     content: content

@@ -199,6 +199,8 @@ $(function(){
                 $(this).addClass('tips-error').html(tipstxt[k]);
             }
         });
+        l_usermail.trigger('blur');
+        l_passwd.trigger('blur');
         //延迟500ms
         setTimeout(function(){
             var error=tips.filter('.tips-error');
@@ -225,7 +227,8 @@ $(function(){
                         if(data.status==200){
                             window.location.href=data.url;
                         }else{
-                            dialog({content:'网络错误，请重试！'}).showModal();
+                            notify.warn(data.message);
+                            $(self).removeAttr('disabled').removeClass('btn-disabled').val('立即登录');
                         }
                     },
                     complete:function(){

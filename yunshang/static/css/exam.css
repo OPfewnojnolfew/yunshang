@@ -128,35 +128,35 @@ body {
 .exam-dialog {
     width: 570px;
 }
-.exam-body {
+.exam-dialog-body {
     overflow: hidden;
     margin-top: -20px;
 }
-.exam-body i {
+.exam-dialog-body i {
     font-size: 120px;
     color: #8fc31f;
     float: left;
 }
-.exam-body ul {
+.exam-dialog-body ul {
     float: left;
     margin: 30px 0 0 45px;
 }
-.exam-body ul li {
+.exam-dialog-body ul li {
     font-size: 20px;
     font-weight: 700;
     margin-bottom: 10px;
 }
-.exam-body ul li.last {
+.exam-dialog-body ul li.last {
     margin-top: 45px;
     font-weight: 400;
     color: #676767;
     font-size: 14px;
 }
-.exam-foot {
+.exam-dialog-foot {
     margin-top: 50px;
     text-align: center;
 }
-.exam-foot a {
+.exam-dialog-foot a {
     margin-left: 30px;
 }
 .reading-container .reading-l {

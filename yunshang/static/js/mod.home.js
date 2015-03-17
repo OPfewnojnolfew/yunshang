@@ -6,7 +6,14 @@ $(function(){
 	var sliderEl=$('.flexslider');
     sliderEl.flexslider({
         animation: 'slide',
-        directionNav:false
+        directionNav:true
+    });
+    sliderEl.hover(function(){
+        $('a.flex-prev').stop(true).animate({left:'3%',opacity:1},100);
+        $('a.flex-next').stop(true).animate({right:'3%',opacity:1},100);
+    },function(){
+        $('a.flex-prev').stop(true).animate({left:'-50px',opacity:0},100);
+        $('a.flex-next').stop(true).animate({right:'-50px',opacity:0},100);
     });
     //选项卡鼠标划过
     var hbsTabs=$('#M .hbs-tab');
@@ -19,5 +26,20 @@ $(function(){
     		block.eq(index).show().siblings('.hbs-block').hide();
     	});
     });
+    
+    $('#J_sign').on('click', function() {
+        var $dom = $(this);
+        if ($dom.hasClass('disabled')) {
+            return;
+        }
+        window.YS.ajax($('#sign_url').val(),{},'POST').then(function(data) {
+        	notify.warn(data.error_msg);
+        	if (data.error_code == 0) {
+        		$('span', $dom).html(' 已签到');
+                $dom.addClass('disabled');
+        	}  
+        });
+    });
+
 });
 

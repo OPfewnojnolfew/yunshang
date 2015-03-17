@@ -65,7 +65,7 @@ $(function() {
         }
         if (!$form.find('.pay-agreement').hasClass('checked')) {
             dialog({
-                content: '请同意《出右虚拟货币服务协议》！'
+                content: '请同意《云上虚拟货币服务协议》！'
             }).showModal();
             return false;
         }

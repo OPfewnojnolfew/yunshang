@@ -2,7 +2,7 @@
     if (!window.YS) {
         return;
     }
-    var LOGINURL = '',
+    var LOGINURL = '/Account/login',
         dialogHtml = [
             '<div class="ld-container">',
             '<div class="ld-l">',
@@ -52,7 +52,11 @@
                     password: ldPass,
                     autologin: ldAutologin
                 }, 'POST').then(function(res) {
-
+                    if (res.status === 200) {
+                        location.href = location.href;
+                    }else{
+                        $ldErrortip.text(res.message);
+                    }
                 });
             });
             $ldUsermail.on('focus', function() {
@@ -64,6 +68,7 @@
         };
     window.YS.loginDialog = function() {
         var $dialogContent = $(dialogHtml.join(''));
+        bindEvent($dialogContent);
         dialog({
             title: '用户登录',
             width: 600,
@@ -72,4 +77,7 @@
             innerHTML: '<div i="dialog" class="ui-dialog"><div class="ui-dialog-arrow-a"></div><div class="ui-dialog-arrow-b"></div><table class="ui-dialog-grid"><tr><td i="header" class="ui-dialog-header"><button i="close" class="ui-dialog-close">&#215;</button><div i="title" class="ui-dialog-title"></div></td></tr><tr><td i="body" class="ui-dialog-body"><div i="content" class="ui-dialog-content"></div></td></tr></table></div>'
         }).showModal();
     };
+    $(document).on('click', '.nologin', function() {
+        window.YS.loginDialog();
+    });
 })();

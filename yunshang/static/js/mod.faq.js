@@ -35,14 +35,22 @@ $(function() {
                     if (!content) {
                         $content.focus();
                     }
-                    _ajax(URLS.UPDATEQUESTION, {
+                    _ajax($('#update_question_url').val(), {
                         id: data.id,
                         title: title,
                         content: content
-                    }, 'POST').then(function() {
-                        //修改成功
-                        callback && callback(title, content);
-                        dia.close();
+                    }, 'POST').then(function(data) {
+                    	if (data.error_code==0) {
+                    		//修改成功
+                            callback && callback(title, content);
+                            dia.close();
+                    	} else {
+                    		dia.close();
+                    	    dialog({
+                    	    	content: data.error_msg
+                            }).showModal();
+                    	}
+                        
                     });
                     return false;
                 },
@@ -99,13 +107,21 @@ $(function() {
                     if (!content) {
                         $content.focus();
                     }
-                    _ajax(URLS.UPDATEQUESTION, {
+                    _ajax($('#update_question_url').val(), {
                         id: id,
                         content: content
-                    }, 'POST').then(function() {
-                        //修改成功
-                        $mediaContent.text(content);
-                        dia.close();
+                    }, 'POST').then(function(data) {
+                    	if (data.error_code==0) {
+                    		//修改成功
+                            $mediaContent.text(content);
+                            dia.close();
+                    	} else {
+                    		dia.close();
+                    	    dialog({
+                    	    	content: data.error_msg
+                            }).showModal();
+                    	}
+                        
                     });
                     return false;
                 },
@@ -124,11 +140,11 @@ $(function() {
                     _ajax(url, {
                         id: id
                     }, 'POST').then(function(data) {
-                        if (data.status == 200) {
+                        if (data.error_code == 0) {
                             window.location.href = window.location.href;
                         } else {
                             dialog({
-                                content: '网络错误，请重试！'
+                                content: data.error_msg
                             }).showModal();
                         }
                     });
@@ -141,12 +157,12 @@ $(function() {
         _editQuestion($(this));
     });
     $('.J_deletequestion').on('click', function() {
-        _deleteFAQ($(this), URLS.DELETEQUESTION);
+        _deleteFAQ($(this), $('#delete_question_url').val());
     });
     $('.J_editanswer').on('click', function() {
         _editAnswer($(this));
     });
     $('.J_deletanswer').on('click', function() {
-        _deleteFAQ($(this), URLS.DELETEANSWER);
+        _deleteFAQ($(this), $('#delete_question_url').val());
     });
 });

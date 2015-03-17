@@ -314,13 +314,8 @@
                     <p>请选择个人正面大照片作为头像，照片不能小于300px*300px 支持JPG,JPGE,PNG,BMP格式，大小限制5M以内
                     </p>
                     <div class="avatar-upload">
-                        <form action="" method="post" target="simulatSubmit">
-                            <label for="simulat-file" class="btn btn-primary"><i class="iconfont">&#xe603;</i> 选择图片</label>
-                        </form>
-                        <iframe id="simulatSubmit" name="simulatSubmit" style="display:none"></iframe>
-                        <div style="overflow:hidden;height:0px;">
-                            <input id="simulat-file" type="file" name="file">
-                        </div>
+                        <!--                         <label for="simulat-file" class="btn btn-primary"><i class="iconfont">&#xe603;</i> 更换图像</label> -->
+                        <a class="btn btn-primary J_changeAavatar"><i class="iconfont">&#xe603;</i> 更换图像</a>
                         <ul class="avatar-view fn-clear">
                             <li>
                                 <img src="static/img/test.jpg" width="150px" height="150px">
@@ -336,18 +331,32 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="avatar-crop" style="display:none">
-                        <img width="300px" height="200px" class="J-originimg" />
-                        <div class="avatar-preview">
-                            <div class="preview-container">
-                                <img/>
+                    <div id="setting-avatar-dialog" style="display:none">
+                       <div id="avatar-dialog-container"></div>
+                    </div>
+
+
+                    <!--                     <iframe id="simulatSubmit" name="simulatSubmit" style="display:none"></iframe>
+                    <form action="" method="post" target="simulatSubmit" enctype="multipart/form-data">
+                        <div style="overflow:hidden;height:0px;">
+                            <input id="simulat-file" type="file" name="file">
+                            <input type="hidden" name="x" class="J_avatarX" value="0">
+                            <input type="hidden" name="y" class="J_avatarY" value="0">
+                            <input type="hidden" name="width" class="J_avatarW" value="0">
+                            <input type="hidden" name="height" class="J_avatarH" value="0">
+                        </div>
+                        <div class="avatar-crop" style="display:none">
+                            <div class="J-originimg"></div>
+                            <div class="avatar-preview">
+                                <div class="preview-container">
+                                </div>
+                            </div>
+                            <div class="avatar-foot">
+                                <a href="javascript:void(0)" class="btn btn-primary J_avatarsave"><i class="iconfont">&#xe612;</i> 保存</a>
+                                <a href="javascript:void(0)" class="btn btn-default J_avatarcancel"><i class="iconfont">&#xe613;</i> 取消</a>
                             </div>
                         </div>
-                        <div class="avatar-foot">
-                            <a href="javascript:void(0)" class="btn btn-primary J_avatarsave"><i class="iconfont">&#xe612;</i> 保存</a>
-                            <a href="javascript:void(0)" class="btn btn-default J_avatarcancel"><i class="iconfont">&#xe613;</i> 取消</a>
-                        </div>
-                    </div>
+                    </form> -->
                 </div>
                 <div class="setting-pass ui-tab" data-tab="changepass">
                     <form class="pass-form" onsubmit="return false;">
@@ -417,8 +426,10 @@
     <!-- # foot # -->
     <script src="static/js/jquery.js"></script>
     <script src="static/js/mod.base.js"></script>
+    <script src="static/js/xiuxiu.js" type="text/javascript"></script>
     <script src="static/js/mod.accountsetting.js"></script>
-    <script type="text/javascript" src="static/js/jcrop/js/jquery.Jcrop.min.js"></script>
+    <!-- <script type="text/javascript" src="static/js/jcrop/js/jquery.Jcrop.min.js"></script> -->
+   
 </body>
 
 </html>

@@ -27,8 +27,7 @@ $(function() {
     var URLS = {
             GETLISTENURL: _EXAM_URL,
             POSTRECORDER: _AUDIO_SAVE_URL,
-            SAVEEXAM: 'SAVE_EXAM',
-            ADDWRITINGURL: '' //{'content':}
+            SAVEEXAM: _EXAM_RECORD_SAVE
         },
         OPTIONS = ['A', 'B', 'C', 'D', 'E', 'F', 'G'],
         currentData,
@@ -168,6 +167,7 @@ $(function() {
                 }, 'POST').then(function(res) {
                     Object.prototype.toString.call(res) === '[object String]' && (res = JSON.parse(res));
                     if (res.error_code === 0) {
+                        notify.success(res.error_msg);
                         $wsubmit.remove();
                         $textarea.attr('disabled', 'disabled');
                     }
@@ -287,6 +287,7 @@ $(function() {
                 }, 'POST').then(function(res) {
                     Object.prototype.toString.call(res) === '[object String]' && (res = JSON.parse(res));
                     if (res.error_code === 0) {
+                        notify.success(res.error_msg);
                         //保存成功
                     }
                 });
@@ -303,7 +304,7 @@ $(function() {
             var isPass = rcount / (rcount + wcount) * 100 > 60;
             var dialogHtml = [
                 '<div class="exam-dialog">',
-                '<div class="exam-body">',
+                '<div class="exam-dialog-body">',
                 '<i class="iconfont">' + (isPass ? '&#xe61d;' : '&#xe637;') + '</i>',
                 '<ul>',
                 '<li>此次练习您用了' + timer.getStringTime() + '</li>',
@@ -314,14 +315,14 @@ $(function() {
                 '<li class="last">' + (isPass ? PASSMESSAGE : NOPASSMESSAGE) + '</li>',
                 '</ul>',
                 '</div>',
-                '<div class="exam-foot">',
+                '<div class="exam-dialog-foot">',
                 '<a href="javascript:void(0)" class="btn-inver btn-inver-lg btn-inver-primary">回归题目</a>',
                 '<a href="' + document.referrer + '" class="btn btn-lg btn-primary">马上去</a>',
                 '</div>',
                 '</div>'
             ];
             var $dialogContent = $(dialogHtml.join('')),
-                $review = $('.exam-foot a:eq(0)', $dialogContent),
+                $review = $('.exam-dialog-foot a:eq(0)', $dialogContent),
                 currentDialog = dialog({
                     title: ' ',
                     width: 570,
@@ -367,7 +368,7 @@ $(function() {
                     //     $.jRecorder.record(30);
                     //     $Jrecordertest.text('录音中,点击停止');
                     //     $Jrecordertsign.text('录音中，点击进行回听和重新测试');
-                    //     $Jrecordertest.removeClass('btn-primary').addClass('btn-default');
+                    //     $Jrecordertest.removeClass('btn-primary').addClass('btn-warning');
                     //     recorderType = 1;
                     // },
                     testRecording = function() {
@@ -375,7 +376,7 @@ $(function() {
                         $.jRecorder.record(30);
                         $Jrecordertest.text('录音中,点击停止');
                         $Jrecordertsign.text('正在进行录音,点击停止');
-                        $Jrecordertest.removeClass('btn-primary').addClass('btn-default');
+                        $Jrecordertest.removeClass('btn-primary').addClass('btn-warning');
                         t = new Date();
                         recorderType = 1;
                     },
@@ -392,7 +393,7 @@ $(function() {
                         t = parseInt((new Date() - t) / 1000);
                         t = t > 30 ? 30 : t;
                         $Jrecordertsign.html('录音时长 ' + t + ' 秒').append($reRe);
-                        $Jrecordertest.removeClass('btn-default').addClass('btn-primary');
+                        $Jrecordertest.removeClass('btn-warning').addClass('btn-primary');
                         recorderType = 2;
                         $JGO.show();
                     },
@@ -445,6 +446,7 @@ $(function() {
                         Object.prototype.toString.call(res) === '[object String]' && (res = JSON.parse(res));
                         if (res.error_code === 0) {
                             //保存成功
+                            notify.success(res.error_msg);
                         }
                     });
                     if ($speakingPreview.length) {
@@ -573,7 +575,7 @@ $(function() {
             $.jRecorder.stopAudio();
             _createSpeaking($speakingContainer);
         } else if (currentType === 'writing') {
-            var $writingContainer = $('<div class="writing-container fn-clear"><div class="writing-l"></div><div class="writing-r"><textarea/></div></div');
+            var $writingContainer = $('<div class="writing-container fn-clear"><div class="writing-l"></div><div class="writing-r"><textarea/></div></div>');
             _createWrite($writingContainer);
             $('.exam-examing').append($writingContainer);
         }

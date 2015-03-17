@@ -7,6 +7,7 @@
     <link rel="stylesheet" media="screen" href="static/css/style.css" />
     <link rel="stylesheet" media="screen" href="static/css/global.css" />
     <link rel="stylesheet" media="screen" href="static/css/usercenter.css" />
+    <link rel="stylesheet" media="screen" href="static/js/at/css/jquery.atwho.min.css" />
     <link rel="shortcut icon" type="image/x-icon" href="static/img/favicon.png" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" />
@@ -272,33 +273,83 @@
                     </li>
                 </ul>
                 <div class="active" data-tab="inbox">
-                    <div class="panel-media media-bl">
-                        <a href="#" class="media-left"><img src="http://placehold.it/120x120" alt="" class="avatar50x50">
-                        </a>
-                        <div class="media-body">
-                            <div class="media-heading">火拳阿飞2
+                    <div class="inbox-container fn-clear">
+                        <div class="inbox-l">
+                            <div class="inbox-toptoolbar">
+                                <div class="J_toolbarNormal toobar-normal">
+                                    <a href="javascript:void(0)" class="J_Mdel toobar-mdel">批量删除</a>
+                                    <a href="javascript:void(0)" class="J_Mreaded toobar-mreaded">标为已读</a>
+                                </div>
+                                <div class="J_toobarOnop toobar-onop">
+                                    <input type="checkbox" class="talk-msel J_Msel" />
+                                    <span class="talk-selall">全选</span>
+                                    <a href="javascript:void(0)" class="toobar-del J_Del">删除</a>
+                                    <a href="javascript:void(0)" class="toobar-readed  J_Readed">标为已读</a>
+                                    <a href="javascript:void(0)" class="toobar-cancel J_cancel">取消</a>
+                                </div>
                             </div>
-                            <p class="media-content">1+1为什么等于2
-                            </p>
-                            <div class="media-foot">
-                                <span>2015-1-30 20:12:12</span>
-                                <a href="javascript:void(0)" data-id="我是ID" class="J_deletemail"><i class="iconfont">&#xe62e;</i> 删除</a>
-                                <a href="javascript:void(0)" class="uc-primary J_sendmail" data-nickname="我是昵称"><i class="iconfont">&#xe638;</i> 回复</a>
+                            <div class="inbox-talklist">
+                                <div class="inbox-talkitem" data-id="1">
+                                    <input type="checkbox" class="talk-sel" />
+                                    <a href="javascript:void(0)" class="talk-user">
+                                        <img src="">
+                                        <span>火拳阿飞</span>
+                                    </a>
+                                    <span class="talk-time">12月12号</span>
+                                    <a href="javascript:void(0)" class="J_Sdel talk-delete"><i class="iconfont">&#xe613;</i></a>
+                                </div>
+                                <div class="inbox-talkitem" data-id="1">
+                                    <input type="checkbox" class="talk-sel" />
+                                    <a href="javascript:void(0)" class="talk-user">
+                                        <img src="">
+                                        <span>火拳阿飞</span>
+                                    </a>
+                                    <span class="talk-time">12月12号</span>
+                                    <a href="javascript:void(0)" class="talk-delete"><i class="iconfont">&#xe613;</i></a>
+                                </div>
+                                <div class="inbox-talkitem" data-id="1">
+                                    <input type="checkbox" class="talk-sel" />
+                                    <a href="javascript:void(0)" class="talk-user">
+                                        <img src="">
+                                        <span>火拳阿飞</span>
+                                    </a>
+                                    <span class="talk-time">12月12号</span>
+                                    <a href="javascript:void(0)" class="talk-delete"><i class="iconfont">&#xe613;</i></a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="panel-media media-bl">
-                        <a href="#" class="media-left"><img src="http://placehold.it/120x120" alt="" class="avatar50x50">
-                        </a>
-                        <div class="media-body">
-                            <div class="media-heading">火拳阿飞2
-                            </div>
-                            <p class="media-content">1+1为什么等于2
+                        <div class="inbox-r">
+                            <p class="msg-header">
+                                <a href="#">我</a>与<a href="#">火圈阿飞</a>的私信<span>（共3条）</span>
                             </p>
-                            <div class="media-foot">
-                                <span>2015-1-30 20:12:12</span>
-                                <a href="javascript:void(0)" data-id="我是ID" class="J_deletemail"><i class="iconfont">&#xe62e;</i> 删除</a>
-                                <a href="javascript:void(0)" class="uc-primary J_sendmail" data-nickname="我是昵称"><i class="iconfont">&#xe638;</i> 回复</a>
+                            <ul class="msg-body">
+                                <li>
+                                    <div class="msg-item fn-clear">
+                                        <a><img src="" width="40px" height="40px">
+                                        </a>
+                                        <div class="msg-arrow"></div>
+                                        <div class="msg-content">
+                                            <p>xxxxxxxx</p>
+                                            <div class="msg-time">2015-01-02 12:12</div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="msg-item right fn-clear">
+                                        <div class="msg-arrow"></div>
+                                        <div class="msg-content">
+                                            <p>xxxxxxxx</p>
+                                            <div class="msg-time">2015-01-02 12:12</div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="msg-toobar"></div>
+                            <div class="msg-foot">
+                                <textarea class="J_MsgContent"></textarea>
+                                <div class="msg-toobar1">
+                                    <a class="btn btn-warning btn-sm disabled J_MsgSendMail"><i class="iconfont">&#xe605;</i> 发送</a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -368,6 +419,9 @@
     <!-- # foot # -->
     <script src="static/js/jquery.js "></script>
     <script src="static/js/mod.base.js "></script>
+    <script src="static/js/at/js/jquery.caret.min.js "></script>
+    <script src="static/js/at/js/jquery.atwho.min.js "></script>
+    <script src="static/js/mod.usercenter.js "></script>
     <script src="static/js/mod.usercenter.js "></script>
     <script src="static/js/mod.inbox.js "></script>
 </body>

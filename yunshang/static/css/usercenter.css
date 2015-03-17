@@ -19,8 +19,10 @@
     box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
 }
 .m-uc-left > p {
-    font-size: 18px;
-    line-height: 45px;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 36px;
+    margin: 10px 0 12px;
     border-bottom: 1px solid #bbcae2;
 }
 .m-uc-left > h5 {
@@ -254,7 +256,8 @@
     font-size: 20px;
 }
 .m-uc-menu p {
-    font-size: 18px;
+    font-size: 16px;
+    font-weight: bold;
     line-height: 35px;
     border-bottom: 1px solid #bbcae2;
 }
@@ -262,8 +265,8 @@
     padding: 10px;
 }
 .m-uc-menu a {
-    font-size: 14px;
-    line-height: 33px;
+    font-size: 15px;
+    line-height: 26px;
     display: block;
 }
 .m-uc-menu a:hover {
@@ -281,11 +284,12 @@
     padding: 25px 10px 20px;
     background: #fff;
     box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
+    margin-bottom: 10px;
 }
 .uc-info {
     position: relative;
     padding: 0 0 10px;
-    border-bottom: 1px solid #d1d1d1;
+    /*border-bottom: 1px solid #d1d1d1;*/
 }
 .uc-info > i {
     position: absolute;
@@ -297,6 +301,12 @@
     width: 110px;
     height: 50px;
     background: url(../img/badge-teacher.png) no-repeat;
+}
+.badge-student {
+    display: inline-block;
+    width: 110px;
+    height: 50px;
+    background: url(../img/badge-student.png) no-repeat;
 }
 .level-glod {
     display: inline-block;
@@ -434,16 +444,21 @@
 /***********************右侧账户设置***********************/
 
 .setting-info, .setting-pass {
-    width: 330px;
-    margin: 10px auto;
+    width: 450px;
+    margin: 30px auto;
+    text-align: left;
+    padding-left: ;
 }
 .info-form li, .pass-form li {
     font-size: 14px;
     line-height: 33px;
     margin: 15px 0;
 }
-.info-form li.last, .pass-form li.last {
+.info-form li.last {
     text-align: center;
+}
+.pass-form li.last {
+    padding-left: 80px;
 }
 .info-form li .info-username {
     padding-left: 12px;
@@ -546,6 +561,193 @@
 .inbox-dialog li.last {
     margin-top: 20px;
     text-align: center;
+}
+.inbox-container {
+    height: 580px;
+    position: relative;
+}
+.inbox-l {
+    float: left;
+    width: 220px;
+    height: 100%;
+    border-right: 1px solid #D9D9D9;
+}
+.inbox-talklist {
+    overflow: auto;
+    height: 540px;
+}
+.inbox-talkitem {
+    line-height: 50px;
+    padding-left: 10px;
+}
+.inbox-talkitem:hover, .inbox-talkitem.active {
+    background: #F3F3F3;
+}
+.talk-delete {
+    float: right;
+    display: none;
+}
+.talk-time {
+    color: #AEAEAE;
+    margin-left: 10px;
+}
+.talk-user img {
+    vertical-align: middle;
+    width: 32px;
+    height: 32px;
+}
+.talk-user {
+    float: left;
+    width: 90px;
+    overflow: hidden;
+    height: 49px;
+}
+.talk-user span {
+    color: #333;
+}
+.talk-sel {
+    display: none;
+    margin-right: 5px;
+}
+.inbox-talkitem {
+    cursor: pointer;
+    border-bottom: 1px dotted #E2E2E2;
+}
+.inbox-talkitem:hover .talk-delete {
+    display: inline-block;
+    margin-right: 5px;
+}
+.inbox-toptoolbar {
+    line-height: 35px;
+    border-bottom: 1px solid #D9D9D9;
+}
+.msg-header {
+    padding-left: 15px;
+    line-height: 35px;
+    -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+    -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+    -khtml-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+.msg-header a {
+    color: #333;
+    font-weight: bold;
+}
+.msg-header span {
+    color: #999;
+}
+.msg-header a:hover {
+    color: #2E7FDB;
+}
+.inbox-toptoolbar .toobar-normal {} .inbox-toptoolbar .toobar-onop {
+    display: none;
+}
+.toobar-normal a, .toobar-onop a {
+    display: inline-block;
+    line-height: 20px;
+    margin-right: 10px;
+    padding: 0 10px;
+    color: #666;
+    border: 1px solid #ccc;
+}
+.inbox-toptoolbar a.disabled {} .inbox-toptoolbar a.toobar-cancel {
+    padding: 0;
+    border: none;
+    color: #999;
+}
+.talk-selall {
+    color: #999;
+    margin-right: 10px;
+}
+.inbox-r {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 221px;
+    border-right: 1px solid #D9D9D9;
+    border-bottom: 1px solid #D9D9D9;
+    border-top: 1px solid #D9D9D9;
+    font-size: 14px;
+}
+.inbox-r .msg-body {
+    height: 360px;
+    overflow: auto;
+    padding-top: 35px;
+}
+.inbox-r .msg-foot {
+    position: absolute;
+    top: 455px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+.msg-foot textarea {
+    border: none;
+    width: 462px;
+    padding: 5px;
+    height: 74px;
+}
+.msg-toobar {
+    height: 24px;
+    background: #F3F3F3;
+    border-bottom: 1px solid #E3E3E3
+}
+.msg-foot>div {
+    position: absolute;
+    text-align: right;
+    line-height: 40px;
+    padding: 0 25px;
+    background: #F3F3F3;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+.msg-body li {
+    margin: 0 10px 16px 20px;
+    overflow: hidden;
+}
+.msg-item>a {
+    float: left;
+    margin-right: 10px;
+}
+.msg-item>.msg-content {
+    float: left;
+    position: relative;
+    background: #F2F8FB;
+    border: 1px solid #E1E9ED;
+    max-width: 335px;
+    min-width: 200px;
+    padding: 12px 12px 5px 12px;
+}
+.msg-item>.msg-arrow {
+    float: left;
+    background: url(data:image/gif;base64,R0lGODlhCAANAKIAAAAAAP///+jv8+Hp7fL4+////wAAAAAAACH5BAEAAAUALAAAAAAIAA0AAAMYGLojq428KKEg2OJMd9/BV33MlZUn+lgJADs=) no-repeat;
+    margin-top: 20px;
+    margin-right: -1px;
+    width: 8px;
+    height: 68px;
+    position: relative;
+    z-index: 1000;
+}
+.msg-item.right>a {
+    float: right;
+}
+.msg-item.right>.msg-content {
+    float: right;
+    background: #FBFAF2;
+    border: 1px solid #ECEADB;
+}
+.msg-item.right>.msg-arrow {
+    float: right;
+    background: url(data:image/gif;base64,R0lGODlhCAANAKIAAAAAAP////Lx5Ozq2/v68v///wAAAAAAACH5BAEAAAUALAAAAAAIAA0AAAMZKBPcpI2Rt9yEctKsoe7Dt30YaGESyqhMAgA7) no-repeat;
+    margin-top: 20px;
+    margin-left: -1px;
+}
+.msg-content .msg-time {
+    text-align: right;
+    color: #AEAEAE;
+    font-size: 12px;
 }
 /************************问答************************/
 
@@ -686,11 +888,190 @@
 }
 .exam-header li {
     float: left;
-    width: 33.33%;
+    width: 319px;
     text-align: center;
 }
-.exam-header-c {
-    border-left: 1px solid #d1d1d1;
-    border-right: 1px solid #d1d1d1;
-    margin-right: -2px;
+.exam-header li span {
+    margin-right: 30px;
 }
+.exam-header li.exam-header-split {
+    width: 1px;
+    height: 26px;
+    background: #d1d1d1;
+    margin-top: 26px;
+}
+.exam-body {
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
+    overflow: hidden;
+    margin-top: 10px;
+}
+.exam-listening {
+    padding: 30px 0 0 60px;
+}
+.exam-title {
+    font-size: 20px;
+    font-weight: 700px;
+    line-height: 40px;
+}
+.exam-choice {
+    font-size: 16px;
+    font-weight: 400;
+    margin-top: 10px;
+}
+.echoice-body li {
+    overflow: hidden;
+    margin: 15px 0;
+    cursor: pointer;
+}
+.echoice-body li i {
+    float: left;
+}
+.echoice-body li p {
+    float: left;
+    padding-left: 10px;
+    width: 445px;
+}
+.echoice-foot {
+    text-align: center;
+    margin: 50px 0 0;
+}
+.echoice-foot a {
+    margin-right: 20px;
+}
+.exam-check {
+    display: inline-block;
+    background: url('../img/examcheck.png') no-repeat 0 -31px;
+    width: 24px;
+    height: 24px;
+}
+.exam-check.checked, .exam-check[checked] {
+    background: url('../img/examcheck.png') no-repeat 0 0;
+}
+.reading-container {
+    position: relative;
+    height: 550px;
+}
+.reading-container .reading-l {
+    width: 480px;
+    height: 100%;
+    min-height: 100px;
+    float: left;
+    padding-top: 30px;
+    overflow: hidden;
+    overflow-y: auto;
+}
+.reading-container .reading-r {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 485px;
+    overflow: hidden;
+    overflow-y: auto;
+    border: 2px solid #ccc;
+}
+.reading-title {
+    padding: 30px 0 29px;
+    text-align: center;
+    font-size: 24px;
+    color: #333;
+}
+.reading-content {
+    font-size: 16px;
+    line-height: 26px;
+    padding: 0 20px 30px;
+    color: #000;
+}
+.player-container {
+    margin-right: -20px;
+    margin-left: -20px;
+}
+.writing-container {
+    position: relative;
+    height: 500px;
+}
+.writing-container .writing-l {
+    width: 480px;
+    height: 100%;
+    min-height: 100px;
+    float: left;
+    overflow: hidden;
+    overflow-y: auto;
+}
+.writing-container .writing-r {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 485px;
+    /*    overflow: hidden;
+    overflow-y: auto;*/
+}
+.writing-r .writing-area {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 50px;
+    left: 0;
+    border: 2px solid #ccc;
+    padding-left: 8px;
+    padding-bottom: 8px;
+}
+.writing-r .writing-s {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+}
+.writing-area textarea {
+    width: 100%;
+    height: 100%;
+    padding-top: 8px;
+    border: none;
+}
+.writing-title {
+    padding: 30px 0 29px;
+    text-align: center;
+    font-size: 24px;
+    color: #333;
+}
+.writing-content {
+    font-size: 16px;
+    line-height: 26px;
+    padding: 0 20px 30px;
+    color: #000;
+}
+.exam-rating li {
+    margin: 10px 0;
+}
+.exam-rating li input {
+    border: 1px solid #d2d2d2;
+    padding: 8px 5px;
+    width: 70px;
+    margin-left: 5px;
+}
+.exam-rating li textarea {
+    width: 905px;
+    margin-left: 5px;
+    padding: 8px 5px;
+    height: 180px;
+    border: 1px solid #d2d2d2;
+}
+.exam-rating li.last {
+    text-align: center;
+}
+.exam-rating li span {
+    margin-left: 5px;
+    color: #CF4965;
+}
+.exam-comment {
+    display: inline-block;
+    vertical-align: top;
+}
+/*.setting-avatar-dialog{
+    position: absolute;
+    left: -9999px;
+}*/

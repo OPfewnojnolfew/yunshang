@@ -8,13 +8,13 @@ $(function(){
         animation: 'slide',
         directionNav:true
     });
-//    sliderEl.hover(function(){
-//        $('a.flex-prev').stop(true).animate({left:'2%',opacity:1},100);
-//        $('a.flex-next').stop(true).animate({right:'2%',opacity:1},100);
-//    },function(){
-//        $('a.flex-prev').stop(true).animate({left:'-6%',opacity:0},100);
-//        $('a.flex-next').stop(true).animate({right:'-6%',opacity:0},100);
-//    });
+    sliderEl.hover(function(){
+        $('a.flex-prev').stop(true).animate({left:'2%',opacity:1},100);
+        $('a.flex-next').stop(true).animate({right:'2%',opacity:1},100);
+    },function(){
+        $('a.flex-prev').stop(true).animate({left:'-6%',opacity:0},100);
+        $('a.flex-next').stop(true).animate({right:'-6%',opacity:0},100);
+    });
     //选项卡鼠标划过
     var hbsTabs=$('#M .hbs-tab');
     hbsTabs.each(function(k,val){

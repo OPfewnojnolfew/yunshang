@@ -554,7 +554,7 @@ $(function() {
         timer.start();
         if (currentType === 'listening') {
             $('#M').addClass('w-158');
-            _createPlayer(currentData && currentData.audio);
+            _createPlayer(currentData && currentData.audio, null, true, true);
             if (currentData.subjects && currentData.subjects.length) {
                 var $listeningContainer = $('<div></div');
                 _createSingleChoice(currentData.subjects[0], 1, currentData.subjects.length, $listeningContainer);
